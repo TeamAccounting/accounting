@@ -18,4 +18,4 @@
 		<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 	</head>
 	
-<body class="skin-blue sidebar-mini sidebar-collapse" >
+<body class="skin-blue sidebar-mini sidebar fixed" >

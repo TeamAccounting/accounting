@@ -174,11 +174,15 @@
  <script type="text/javascript">
     document.getElementById('creset').onclick= function() {
         var field= document.getElementById('AmountCr');
+        var field1= document.getElementById('desccr');
         field.value= field.defaultValue;
+        field1.value= field1.defaultValue;
     };
 	    document.getElementById('dreset').onclick= function() {
         var field= document.getElementById('AmountDr');
+        var field1= document.getElementById('descdr');
         field.value= field.defaultValue;
+        field1.value= field1.defaultValue;
     };
 
       $(document).ready(function() {

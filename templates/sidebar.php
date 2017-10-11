@@ -12,7 +12,7 @@
 			</a>
 		</li>
 		<li class="treeview">
-				<a>
+				<a href="#">
 				<i class="glyphicon glyphicon-list-alt"></i> 
 				<span>General Journal</span>
 				</a>
