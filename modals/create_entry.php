@@ -4,7 +4,7 @@
 
 <div class="modal fade" id='modal_createentry'>
 
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 	
 		<div class="modal-content">
 		
@@ -60,28 +60,32 @@
 						<label>Accounts:</label>					
 						<select class="form-control" id="selectdr" name="selectdr" required>
 							<!-- Insert Options -->
-																<?php
-								$accounttable =$connection -> myQuery("SELECT account_name,acc_id FROM accounts;");
+							<?php
+							$accounttable =$connection -> myQuery("SELECT type,account_name FROM accounts;")->fetchAll(PDO::FETCH_ASSOC);
                            	echo makeOptions($accounttable);
 						?>
 						</select>
 						<br>
 					<div id="uexpenses">
-					<input type="text" class="form-control" data-allow-clear='True' placeholder="Description" id = "descdr" required>
-					</div>	
+					<input type="text" class="form-control" data-allow-clear='True' placeholder="Account Description" id = "descdr">
+					</div><br>
+					<div id="accpaydr" style='display:none;'>
+					<input type="text" class="form-control" data-allow-clear='True' placeholder="Bank Name" id = "bankdr"><br>
+					<input type="number" class="form-control" data-allow-clear='True' placeholder="Cheque Number" id = "chqdr">
+					</div>
 					<div class="input-group margin input-group-sm">
 						<input type="text" class="form-control" placeholder="Amount" id = "AmountDr" onkeypress="return isNumberKey(event)" required>
 						<span class="input-group-btn">
-								<button type="button" class="btn btn-primary btn-flat " onclick="return Dr();">Add Debit</button>
-								<button type="button"  id="dreset" class="btn btn-danger btn-flat">Cancel</button>
+							<button type="button" class="btn btn-primary btn-flat " onclick="return Dr();">Add Debit</button>
+							<button type="button"  id="dreset" class="btn btn-danger btn-flat">Cancel</button>
 						</span>						
 					</div>
-			
 					<div style="overflow: auto; height: 180px;">
 						<table class="table table-striped" id="DebitTable">
 							<thead id="tblHead">
 								<tr>
 									<th>Accounts</th>
+									<th class="col-lg-2">Description</th>
 									<th class="text-right">Amount</th>
 									<th class = "col-lg-2">Action</th>
 								</tr>
@@ -105,19 +109,18 @@
 							<label>Accounts:</label>
 						<select class="form-control" id="selectcr" name="selectcr">
 						<!-- Insert Options -->
-							<option disabled selected>Account Title</option>
 							<?php
-								$accounttable =$connection -> myQuery("SELECT account_name,acc_id FROM accounts;");
-			
-									while($result = $accounttable->fetch(PDO::FETCH_ASSOC)){
-									$CreditTitle= $result['account_name'];
-									$AcctID = $result['acc_id'];		
+								$accounttable =$connection -> myQuery("SELECT type,account_name FROM accounts;")->fetchAll(PDO::FETCH_ASSOC);
+								echo makeOptions($accounttable);
 							?>
-									<option id = "<?php echo '$AcctID' ?>"  value="<?php echo "$CreditTitle"; ?>"><?php echo "$CreditTitle"; }; ?></option>
 						</select>
 						<br>
 						<div id="uexpenses">
-						<input type="text" class="form-control" placeholder="Description" id = "desccr" required>
+						<input type="text" class="form-control" placeholder="Description" id = "desccr">
+						</div><br>
+						<div id="accpaycr" style='display:none;'>
+						<input type="text" class="form-control" data-allow-clear='True' placeholder="Bank Name" id = "bankcr"><br>
+						<input type="number" class="form-control" data-allow-clear='True' placeholder="Cheque Number" id = "chqcr">
 						</div>
 						<div class="input-group margin input-group-sm">
 								<input type="text" class="form-control" placeholder="Amount" id = "AmountCr" onchange="change(this);" onkeypress="return isNumberKey(event)">
@@ -125,15 +128,13 @@
 								<button type="button" class="btn btn-primary btn-flat " onclick="return Cr();">Add Credit</button>
 								<button type="button"  id="creset" class="btn btn-danger btn-flat ">Cancel</button>
 							</span>
-						</div>
-					
-					
-					
+						</div>	
 					<div style="overflow: auto; height: 180px;">
 						<table class="table table-striped" id="CreditTable">
 								<thead id="tblHead">
 									<tr>
 										<th>Accounts</th>
+										<th class="col-lg-2">Description</th>
 										<th class="text-right">Amount</th>
 										<th class="col-lg-2">Action</th>							
 									</tr>
@@ -147,8 +148,8 @@
 					
 		
 					<div class="form-group">
-                  <label>Description:</label>
-                  <input class="form-control" name="entry_description" placeholder="Description" onkeypress="return noSpecialChar(event)" required>
+                  <label>Remarks:</label>
+                  <input class="form-control" name="entry_description" placeholder="Enter Remarks" onkeypress="return noSpecialChar(event)" required>
                 </div>
 				
 
@@ -157,9 +158,10 @@
 			
 		
 		
-			<div class="modal-footer">
-					<button type="button" class="btn btn-danger pull-left" data-dismiss="modal" onclick="clearTable()">Close</button>   
-					<button type="submit" id="pass" class="btn btn-primary" onclick="GetCellValues()" disabled>Save changes</button>
+			<div class="modal-footer"><center>
+					<button type="submit" id="pass" class="btn btn-primary" onclick="GetCellValues()" disabled>Save</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearTable()">Close</button> 
+					</center>
 			</div>
 			
 		</div>
@@ -175,36 +177,44 @@
     document.getElementById('creset').onclick= function() {
         var field= document.getElementById('AmountCr');
         var field1= document.getElementById('desccr');
+        var field2= document.getElementById('bankcr');
+        var field3= document.getElementById('chqcr');
         field.value= field.defaultValue;
         field1.value= field1.defaultValue;
+        field2.value= field2.defaultValue;
+        field3.value= field3.defaultValue;
     };
 	    document.getElementById('dreset').onclick= function() {
         var field= document.getElementById('AmountDr');
         var field1= document.getElementById('descdr');
+        var field2= document.getElementById('bankdr');
+        var field3= document.getElementById('chqdr');
         field.value= field.defaultValue;
         field1.value= field1.defaultValue;
+        field2.value= field2.defaultValue;
+        field3.value= field3.defaultValue;
     };
 
       $(document).ready(function() {
-	    $('#descdr').attr('disabled','disabled');
-	    $('#desccr').attr('disabled','disabled');    
-	    $('select[name="selectdr"]').on('change',function(){
-	    var  others = $(this).val();
-	        if(others == "Utilities Expenses"){           
-	        $('#descdr').removeAttr('disabled');          
-	         }else{
-	         $('#descdr').attr('disabled','disabled'); 
-	        }  
-	      });
-	    $('select[name="selectcr"]').on('change',function(){
-	    var  others = $(this).val();
-	        if(others == "Utilities Expenses"){           
-	        $('#desccr').removeAttr('disabled');          
-	         }else{
-	         $('#desccr').attr('disabled','disabled'); 
-	        }  
-	      });
-
+	  $('#selectdr').on('change', function() {
+      if (( this.value == '6')||( this.value == '7'))
+      {
+        $("#accpaydr").show();
+      }
+      else
+      {
+        $("#accpaydr").hide();
+      }
+    });
+	  $('#selectcr').on('change', function() {
+      if (( this.value == '6')||( this.value == '7'))
+      {
+        $("#accpaycr").show();
+      }
+      else
+      {
+        $("#accpaycr").hide();
+      }
+    });
     });
 </script>
-ewqeqwewqeqwSSSS

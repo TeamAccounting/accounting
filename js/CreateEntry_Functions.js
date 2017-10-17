@@ -27,30 +27,45 @@ function noSpecialChar(evt){
 	
 // dr and cr functions	
 	function Dr(){
+		var a = document.getElementById('bankdr').value;
+		var b = document.getElementById('chqdr').value;
 		var x = document.getElementById('descdr').value;
 		var y = document.getElementById('selectdr').value;
 		var z = document.getElementById('AmountDr').value;
-		if (document.getElementById('descdr').disabled){
-	    }else{
-	    	 if (x == "") {
-	        alert("Please enter Description");
-	        return;
-	    }}
 	    if (y == "") {
 	        alert("Please select a Debit Account");
 	        return;
 	    }
-	     else if (z == "") {
+	    else if(x == ""){
+	    alert("Please enter Description");
+	    return;}
+	    else if((y=="6")||(y=="7")){ 
+	    if(a==""){
+	    	alert("Please enter Bank Name");
+	        return;
+	    }
+	    else if (b==""){
+	    	alert("Please enter Cheque Number");
+	        return;
+	    }
+	    else if (z == "") {
+	        alert("Please enter Amount");
+	        return;
+	    }}
+	    else if (z == "") {
 	        alert("Please enter Amount");
 	        return;
 	    }
 	    amountDTotal();
 		equate();
-		var DrTitle= document.getElementById('selectdr').value;
+		var DrTitle= document.getElementById('selectdr').options[document.getElementById('selectdr').selectedIndex].text;
 		//document.getElementById('Result_Dr').innerHTML = DrTitle;
 								
 		var AmountDr = document.getElementById('AmountDr').value;	
 		//document.getElementById('Result_AmtDr').innerHTML =Amount;
+		var DescDr = document.getElementById('descdr').value;
+		var BankDr = document.getElementById('bankdr').value;
+		var ChqDr = document.getElementById('chqdr').value;
 		var DebitTable = document.getElementById("DebitTable");
 		var row = DebitTable.insertRow(-1);
 		
@@ -63,9 +78,28 @@ function noSpecialChar(evt){
 				debit_name_input.value=DrTitle;
 				Result_Dr.innerHTML = DrTitle;
 				Result_Dr.appendChild(debit_name_input);
+
+			var Desc_Dr = row.insertCell(1);
+				var debit_desc_input = document.createElement('input');
+				var debit_bank_input = document.createElement('input');
+				var debit_chq_input = document.createElement('input');
+				debit_desc_input.type='hidden';
+				debit_desc_input.name='drdesc[]';
+				debit_desc_input.value=DescDr;
+				debit_bank_input.type='hidden';
+				debit_bank_input.name='drbank[]';
+				debit_bank_input.value=BankDr;
+				debit_chq_input.type='hidden';
+				debit_chq_input.name='drchq[]';
+				debit_chq_input.value=ChqDr;
+				if((y=="6")||(y=="7")){
+				Desc_Dr.innerHTML = DescDr+"<br>("+ChqDr+") "+BankDr;}
+				else{
+				Desc_Dr.innerHTML = DescDr;
+				}
+				Desc_Dr.appendChild(debit_desc_input);
 		
-		
-			var Result_AmtDr = row.insertCell(1);
+			var Result_AmtDr = row.insertCell(2);
 				var debit_value_input = document.createElement('input');
 				debit_value_input.type='hidden';
 				debit_value_input.name='drvalues[]';
@@ -74,7 +108,7 @@ function noSpecialChar(evt){
 				Result_AmtDr.appendChild(debit_value_input);
 	
 				
-			var DelDr = row.insertCell(2);
+			var DelDr = row.insertCell(3);
 				DelDr.innerHTML = "<button type='button' value="+AmountDr+" class='btn bg-maroon btn-xs fa fa-trash' onclick='deleteDr(this)'></button>"
 			
 		return false;
@@ -83,11 +117,41 @@ function noSpecialChar(evt){
 	
 						
 	function Cr(){
-			
-		amountCTotal() ;
+		var a = document.getElementById('bankcr').value;
+		var b = document.getElementById('chqcr').value;
+		var x = document.getElementById('desccr').value;
+		var y = document.getElementById('selectcr').value;
+		var z = document.getElementById('AmountCr').value;
+	    if (y == "") {
+	        alert("Please select a Debit Account");
+	        return;
+	    }
+	    else if(x == ""){
+	    alert("Please enter Description");
+	    return;}
+	    else if((y=="6")||(y=="7")){ 
+	    if(a==""){
+	    	alert("Please enter Bank Name");
+	        return;
+	    }
+	    else if (b==""){
+	    	alert("Please enter Cheque Number");
+	        return;
+	    }
+	    else if (z == "") {
+	        alert("Please enter Amount");
+	        return;
+	    }}
+	    else if (z == "") {
+	        alert("Please enter Amount");
+	        return;
+	    }
+	    amountCTotal();
 		equate();
-		
-		var CrTitle= document.getElementById('selectcr').value;					
+		var CrTitle= document.getElementById('selectcr').options[document.getElementById('selectcr').selectedIndex].text;
+		var DescCr = document.getElementById('desccr').value;
+		var BankCr = document.getElementById('bankcr').value;
+		var ChqCr = document.getElementById('chqcr').value;				
 		var AmountCr = document.getElementById('AmountCr').value;	
 		var CreditTable = document.getElementById("CreditTable");
 		var row = CreditTable.insertRow(-1);
@@ -99,8 +163,28 @@ function noSpecialChar(evt){
 				credit_name_input.value=CrTitle;
 				Result_Cr.innerHTML = CrTitle;
 				Result_Cr.appendChild(credit_name_input);
+
+			var Desc_Cr = row.insertCell(1);
+				var credit_desc_input = document.createElement('input');
+				var credit_bank_input = document.createElement('input');
+				var credit_chq_input = document.createElement('input');
+				credit_desc_input.type='hidden';
+				credit_desc_input.name='crdesc[]';
+				credit_desc_input.value=DescCr;
+				credit_bank_input.type='hidden';
+				credit_bank_input.name='crbank[]';
+				credit_bank_input.value=BankCr;
+				credit_chq_input.type='hidden';
+				credit_chq_input.name='crchq[]';
+				credit_chq_input.value=ChqCr;
+				if((y=="6")||(y=="7")){
+				Desc_Cr.innerHTML = DescCr+"<br>("+ChqCr+") "+BankCr;}
+				else{
+				Desc_Cr.innerHTML = DescCr;
+				}
+				Desc_Cr.appendChild(credit_desc_input);
 				
-			var Result_AmtCr= row.insertCell(1);
+			var Result_AmtCr= row.insertCell(2);
 				var credit_value_input = document.createElement('input');
 				credit_value_input .type='hidden';
 				credit_value_input.name='crvalues[]';
@@ -108,7 +192,7 @@ function noSpecialChar(evt){
 				Result_AmtCr.innerHTML = AmountCr;
 				Result_AmtCr.appendChild(credit_value_input);
 		
-		var DelCr = row.insertCell(2);
+		var DelCr = row.insertCell(3);
 		DelCr.innerHTML = "<button type='button' value="+AmountCr+" class='btn bg-maroon btn-xs fa fa-trash' onclick='deleteCr(this)'></button>"
 		
 	

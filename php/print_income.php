@@ -26,6 +26,7 @@
  */
 
 // Include the main TCPDF library (search for installation path).
+require_once('../support/config.php');
 require_once('../plugins/TCPDF/tcpdf.php');
 //echo "asdas";
 // create new PDF document
@@ -102,9 +103,8 @@ $html = "
 					<td></td>
 					<td></td>
 					<td></td>
-				</tr>"
+				</tr>";
 				
-				<?php
 				$query = $connection -> myQuery("Select account_name, Sum(amount) as total, date_of_entry From journal_details 
 													INNER JOIN accounts on accounts.acc_id = journal_details.account_id
 													INNER JOIN journal_entries on journal_entries.journal_entry_no = journal_details.journal_entry_no
@@ -115,11 +115,11 @@ $html = "
 					$total = $total + $row['total'];
 			
 				$html.="<tr>
-					<td><p style='text-indent:10vh;'><?php echo $row['account_name'];?></td>
-					<td><?php echo number_format( $row['total']);?></td>
+					<td><p style='text-indent:10vh;'>".$row['account_name']."</td>
+					<td>".number_format( $row['total'])."</td>
 					<td></td>
 					<td></td>
-				</tr>"
+				</tr>";
 			
 				}
 			?>
@@ -173,10 +173,6 @@ $html = "
 				<td></td>
 				<td><?php echo $total - $totalExpense;?></td>
 			</tr>
-			
-			<?php	
-			}
-			?>
 				
 					
 			</tbody>
