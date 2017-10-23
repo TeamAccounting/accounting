@@ -174,6 +174,17 @@
 
  <script type="text/javascript" src="js/CreateEntry_Functions.js"></script>
  <script type="text/javascript">
+
+ 		
+		function GetCellValues() {
+			var amount = document.getElementById("credit_total");
+		  
+
+		    if (amount.value > 10000) {
+		    	alert("Value is morethan 10,000.00PHP, This is needed to be approved by the finance");
+			}
+		}
+
     document.getElementById('creset').onclick= function() {
         var field= document.getElementById('AmountCr');
         var field1= document.getElementById('desccr');

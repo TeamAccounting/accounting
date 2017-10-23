@@ -4,6 +4,7 @@
   
   <ul class="sidebar-menu">
       <li class="header">Accounting Tools</li>
+
       <!-- Optionally, you can add icons to the links -->
 		<li class="treeview">
 				<a href="dash.php">
@@ -74,7 +75,26 @@
 					</li>
 			</ul>
 		</li>
-	  
+
+		<li class="header">For Approval</li>
+		<li class="treeview">
+				<a href="approval_flow.php">
+				<i class="fa fa-file-text"></i>
+				<span>Cash Approval</span>
+			</a>
+		</li>
+
+
+		<li class="header">Administrator</li>
+		<li class="treeview">
+				<a href="approval_flow.php">
+				<i class="fa fa-dashboard"></i> 
+				<span>Approval Flow</span>
+			</a>
+		</li>
+
+	   
+
 
 	  <?php
 	  
