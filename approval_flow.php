@@ -13,8 +13,47 @@
     $users=$connection->myQuery("SELECT u.user_id, u.full_name as user FROM users u WHERE u.user_id NOT IN (SELECT user_id FROM approval_flow)")->fetchAll(PDO::FETCH_ASSOC);
 	// makeHead("Approval Flow");
 ?>
+<<<<<<< HEAD
 
 
+=======
+ <style type="text/css">
+        body.dragging, body.dragging * {
+          cursor: move !important;
+        }
+
+        .dragged {
+          position: absolute;
+          opacity: 0.5;
+          z-index: 2000;
+        }
+       .sortable-table tbody tr {
+          cursor: pointer; }
+        /* line 96, /Users/jonasvonandrian/jquery-sortable/source/css/application.css.sass */
+        .sortable-table tr.placeholder {
+          display: block;
+          background: #337ab7;
+          position: relative;
+          margin: 0;
+          padding: 0;
+          /*border: none;*/ }
+          /* line 103, /Users/jonasvonandrian/jquery-sortable/source/css/application.css.sass */
+          .sortable-table tr.placeholder:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-left-color: #337ab7;
+            margin-top: -5px;
+            left: -5px;
+            border-right: none; }
+          
+</style>
+<?php
+
+?>
+>>>>>>> 9f2abf8b0e9b5838c2c9be921d076781b9760147
  	<div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -77,8 +116,12 @@
                             ?>
                             </tbody>
                             <tfoot>
+<<<<<<< HEAD
                                 <td colspan='3' style="text-align: right"><button class="btn btn-brand" >Save Process</button> 
                                 <!-- <a href="process.php" class="btn btn-default" > Cancel</a></td> -->
+=======
+                                <td colspan='3' style="text-align: right"><button class="btn btn-brand" >Save Process</button> <a href="process.php" class="btn btn-default" > Cancel</a></td>
+>>>>>>> 9f2abf8b0e9b5838c2c9be921d076781b9760147
                             </tfoot>
                         </table>
                         </div>
@@ -89,10 +132,25 @@
         </section><!-- /.content -->
   </div>
   <script type="text/javascript" src='js/jquery-sortable.js'></script>
+<<<<<<< HEAD
 
 
 <?php
   
   
   addFoot();
+=======
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $('.sortable-table').sortable({
+            containerSelector: 'table',
+            itemPath: '> tbody',
+            itemSelector: 'tr',
+            placeholder: '<tr class="placeholder"/>'
+          })
+      });
+  </script>
+<?php
+	makeFoot();
+>>>>>>> 9f2abf8b0e9b5838c2c9be921d076781b9760147
 ?>
