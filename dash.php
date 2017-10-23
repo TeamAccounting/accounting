@@ -9,6 +9,7 @@
 		setAlert('Please log in to continue','danger');
 	}
 	
+
 ?>
 
 <div class="content-wrapper fixed" >

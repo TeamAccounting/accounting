@@ -111,4 +111,9 @@
     }
     return $options;
 }
+
+function getUserDetails($emp_id){
+	global $con;
+	   return $con->myQuery("SELECT * FROM users WHERE user_id=? LIMIT 1",array($emp_id))->fetch(PDO::FETCH_ASSOC);
+}
 ?>

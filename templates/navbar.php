@@ -1,3 +1,4 @@
+
  <header class="main-header" >
    <a href="dash.php" class="logo">
 	<span class="logo-lg">
@@ -13,31 +14,66 @@
 	  
 	<div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-			<li class="dropdown user user-menu">
-				<a class="dropdown-toggle" data-toggle="dropdown">
-					<img src="http://accounting.sparkglobaltech.com/dist/img/default-profile.png" class="user-image" alt="User Image">
-					<span class="hidden-xs"><?php echo $_SESSION[APPNAME]['FullName']; ?></span>
-				</a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-				<li class="user-header">
-					<img src="http://accounting.sparkglobaltech.com/dist/img/default-profile.png" class="img-circle" alt="User Image">
-					<p>
-						<?php echo $_SESSION[APPNAME]['FullName']; ?>
-					</p>
-				</li>
-
-            </ul>
-          </li>
+			
+           
 			<li><a data-toggle="control-sidebar"><i class="fa fa-calculator"></i> <span>Multi-Function Calculator</span></a></li>
-			<li><a href="php/LoggingOut.php">Log-Out</a></li>
+			
+			<li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  
+                  
+
+                  <span class="hidden-xs"><?php echo $_SESSION[APPNAME]['FullName']; ?></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="image/defUser.jpeg" class="img-circle" alt="User Image">
+                    <p>
+                     <?php echo $_SESSION[APPNAME]['FullName']; ?>
+                      <small> <?php echo $_SESSION[APPNAME]['UserType']; ?> </small>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                  
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                   
+                    <div class="pull-right">
+                      <a href="php/LoggingOut.php" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
 		</ul>
 	</div>	
 	
   </nav>
 </header>
 
+<script type="text/javascript">
+    function isNumberKey(evt, element) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+        return false;
+      else {
+        var len = $(element).val().length;
+        var index = $(element).val().indexOf('.');
+        //alert(index);
+        
+        if (index >= 0 && charCode == 46) {
+          return false;
+        }
+      }
+      return true;
+    } 
+    
+			function validateForm()
+		    {
+		        
+		    }
 
+</script>
 
 <aside class="control-sidebar control-sidebar-light">
   <!-- Content of the sidebar goes here -->
@@ -47,24 +83,24 @@
           <h5 class="box-title">Cost Of Goods Sold</h5>
         </div><!-- /.box-header -->
         <div class="box-body">
-		<form id="CostOfGoods" method="post">
+		<form id="CostOfGoods" method="post" name="Form">
           <div class="input-group">
-                <input class="form-control input-sm" placeholder="Beginning Inventory" id="beg_inv" type="text">
+                <input class="form-control input-sm" name="cgs1" onkeypress="return isNumberKey(event,this)" placeholder="Beginning Inventory" id="beg_inv" type="text" required>
            </div>
 		   +
 		   <div class="input-group">
-                <input class="form-control input-sm" placeholder="Purchases" id="purchase" type="text">
+                <input class="form-control input-sm" name="cgs2" onkeypress="return isNumberKey(event,this)" placeholder="Purchases" id="purchase" type="text">
            </div>
 		   -
 		   <div class="input-group">
-                <input class="form-control input-sm" placeholder="Ending Inventory" id="end_inv"  type="text">
+                <input class="form-control input-sm" name="cgs3" onkeypress="return isNumberKey(event,this)" placeholder="Ending Inventory" id="end_inv"  type="text">
            </div>
 		   =
 		   <div class="input-group">
                 <input class="form-control input-sm" placeholder="Cost Of Goods Sold" id="cod" disabled type="text">
            </div>
 		   <br>
-				<button type="submit" onclick="return CODS()" class="btn bg-olive btn-xs">Compute</button>
+				<button type="button" onclick="return CODS()" class="btn bg-olive btn-xs">Compute</button>
 				<button type="reset" class="btn bg-maroon btn-xs">Clear</button>
 		</form>
         </div><!-- /.box-body -->
@@ -75,6 +111,17 @@
 	  <!-- Calculate CODS -->
 		<script>
 			function CODS(){
+				 // alert("Please Fill All Required Field");
+				var a=document.forms["Form"]["cgs1"].value;
+		        var b=document.forms["Form"]["cgs2"].value;
+		        var c=document.forms["Form"]["cgs3"].value;
+		       
+		        if (a==null || a=="",b==null || b=="",c==null || c=="")
+
+		        {
+		            // alert("Please Fill All Required Field");
+		            return false;
+		        } else {
 				var beg_inv = parseFloat(document.forms["CostOfGoods"]["beg_inv"].value);
 				var purchase = parseFloat(document.forms["CostOfGoods"]["purchase"].value);
 				var end_inv = parseFloat(document.forms["CostOfGoods"]["end_inv"].value);				
@@ -82,7 +129,8 @@
 				display.value = parseFloat(beg_inv + purchase - end_inv).toFixed(2);
 				
 				return false;}
-				
+
+				}
 		</script>
 	  
 	  

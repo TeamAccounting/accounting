@@ -85,7 +85,8 @@
 					if(isset($_POST['to_date'])&&isset($_POST['from_date'])){
 						
 						if($fromdate<=$todate){
-							
+						
+
 							$journalentries = $connection -> myQuery("Select journal_entry_no, date_of_entry from journal_entries where journal_id between $fromdate and $todate");
 						}else{
 							$journalentries = $connection -> myQuery("Select journal_entry_no, date_of_entry from journal_entries where journal_id between $todate and $fromdate");
