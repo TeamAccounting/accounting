@@ -1,22 +1,17 @@
 <?php 
 require_once('support/config.php');
 	if(isset($_POST['entry_date']) && isset($_POST['entry_description'])){
-<<<<<<< HEAD
-
-		
 
 $total = $_POST['crvalues'][0];
 
 // echo number_format($_POST['crvalues']);
 		if ($total > 10000) {
 
-		$journal_num = $_POST['JournalNumber'];
-=======
+
 // var_dump($insert['crvalues']);
 // 		die;
-		if (number_format($_POST['crvalues']) > number_format("10000")) {
 				$journal_num = $_POST['JournalNumber'];
->>>>>>> 0a2fc1a610bbe03b90211a6550c9decd77f43a88
+
 				$journalentry_id = $_POST['JournalID'];
 				$entry_date = $_POST['entry_date'];
 				$newDate = date("Y-m-d", strtotime($entry_date));
@@ -58,12 +53,10 @@ $total = $_POST['crvalues'][0];
 					 
 		} 
 
-<<<<<<< HEAD
-		else {
-				
-=======
+			
+
 		else {	
->>>>>>> 0a2fc1a610bbe03b90211a6550c9decd77f43a88
+
 				$journal_num = $_POST['JournalNumber'];
 				$journalentry_id = $_POST['JournalID'];
 				$entry_date = $_POST['entry_date'];
@@ -98,10 +91,8 @@ $total = $_POST['crvalues'][0];
 				$fin_entry =  trim($insert_entry, ",").";";
 				echo $fin_entry;
 				$results = $connection -> myQuery($fin_entry);
-<<<<<<< HEAD
-				
-=======
->>>>>>> 0a2fc1a610bbe03b90211a6550c9decd77f43a88
+
+
 				redirect("journal_entry.php?id=$journal_num");	
 					 
 				
