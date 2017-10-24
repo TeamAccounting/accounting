@@ -75,19 +75,16 @@
 					</li>
 			</ul>
 		</li>
-<<<<<<< HEAD
 
 		<li class="header">For Approval</li>
 		<li class="treeview">
-				<a href="approval_flow.php">
+				<a href="cash_approval.php">
 				<i class="fa fa-file-text"></i>
 				<span>Cash Approval</span>
 			</a>
 		</li>
 
 
-=======
->>>>>>> 9f2abf8b0e9b5838c2c9be921d076781b9760147
 		<li class="header">Administrator</li>
 		<li class="treeview">
 				<a href="approval_flow.php">
@@ -95,16 +92,11 @@
 				<span>Approval Flow</span>
 			</a>
 		</li>
-<<<<<<< HEAD
 
-=======
 	<?php if ($_SESSION[APPNAME]['UserType']== "Approver" ): ?>
 		<li class="header">For Approval</li>
 		
 	<?php endif; ?>
->>>>>>> 9f2abf8b0e9b5838c2c9be921d076781b9760147
-	   
-
 
 	  <?php
 	  
