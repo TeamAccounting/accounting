@@ -15,7 +15,7 @@
       INNER JOIN users u ON cr.request_by=u.user_id
       INNER JOIN journal_details jd ON cr.journal_entry_no=jd.journal_entry_no
       INNER JOIN accounts a ON jd.account_id=a.acc_id
-      WHERE cr.journal_entry_no = ".$id)->fetch(PDO::FETCH_ASSOC);
+      WHERE cr.journal_entry_no = ".$id)->fetchAll(PDO::FETCH_ASSOC);
 
       $date_modal=date_create($journal_entry['date_of_entry']);
       // var_dump($journal_entry);
@@ -128,7 +128,7 @@
 
               <table style="width:100%" border=0>
                 <tr>
-                  <td><b>Date Entry:</b> <?php  echo $date_modal->format("F Y"); ?></td>
+                  <td><b>Date Entry:</b> <?php  ?></td>
                  
                 </tr>
              
@@ -155,14 +155,22 @@
                   </tr>
                 </thead>
                 <tbody> 
+                <?php foreach ($journal_entry as $rowss): ?>
                    <tr>
                     <td>
-                       <?php echo $journal_entry['account_name']; ?>
+                       <?php echo $rowss['account_name']; ?>
                     </td>
-                     <td>
-                       <?php echo $journal_entry['account_name']; ?>
-                    </td>
+                    <?php if($rowss['is_debit'] == '0'): ?>
+                       <td>
+                         <?php echo $rowss['amount']; ?>
+                      </td><td></td>
+                    <?php else: ?>
+                       <td>
+                         <?php echo $rowss['amount']; ?>
+                      </td><td></td>
+                    <?php endif; ?>
                   </tr>
+                <?php endforeach; ?>
                 </tbody>
           
               </table>

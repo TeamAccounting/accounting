@@ -32,7 +32,7 @@ $total = $_POST['crvalues'][0];
 				$app_id = $approver_id['user_id'];
 				
 
-				$insert_journalentry = $connection->myQuery("INSERT INTO `cash_request` (`id`, `journal_entry_no`, `journal_id`, `date_of_entry`, `description`, `request_by`, `approver_id`, `total_amount`) VALUES (NULL, '$journalentry_id', '$journal_num','$newDate','$entry_desc','$user_id','$app_id','$crvalues')");
+				$insert_journalentry = $connection->myQuery("INSERT INTO `cash_request` (`id`, `journal_entry_no`, `journal_id`, `date_of_entry`, `description`, `request_by`, `approver_id`, `total_amount`) VALUES (NULL, '$journalentry_id', '$journal_num','$newDate','$entry_desc','$user_id','$app_id','$total')");
 				
 				$insert_entry =("INSERT INTO `journal_details` (`id`, `account_id`, `journal_entry_no`, `amount`,`is_debit`,`desc`,`bank_name`,`chq_number`) VALUES");
 					
@@ -49,6 +49,8 @@ $total = $_POST['crvalues'][0];
 				$fin_entry =  trim($insert_entry, ",").";";
 				echo $fin_entry;
 				$results = $connection -> myQuery($fin_entry);
+
+				die;
 				redirect("journal_entry.php?id=$journal_num");	
 					 
 		} 
@@ -92,7 +94,7 @@ $total = $_POST['crvalues'][0];
 				echo $fin_entry;
 				$results = $connection -> myQuery($fin_entry);
 
-
+				die;
 				redirect("journal_entry.php?id=$journal_num");	
 					 
 				
