@@ -81,17 +81,9 @@ function noSpecialChar(evt){
 
 			var Desc_Dr = row.insertCell(1);
 				var debit_desc_input = document.createElement('input');
-				var debit_bank_input = document.createElement('input');
-				var debit_chq_input = document.createElement('input');
 				debit_desc_input.type='hidden';
 				debit_desc_input.name='drdesc[]';
 				debit_desc_input.value=DescDr;
-				debit_bank_input.type='hidden';
-				debit_bank_input.name='drbank[]';
-				debit_bank_input.value=BankDr;
-				debit_chq_input.type='hidden';
-				debit_chq_input.name='drchq[]';
-				debit_chq_input.value=ChqDr;
 				if((y=="6")||(y=="7")){
 				Desc_Dr.innerHTML = DescDr+"<br>("+ChqDr+") "+BankDr;}
 				else{
@@ -110,7 +102,21 @@ function noSpecialChar(evt){
 				
 			var DelDr = row.insertCell(3);
 				DelDr.innerHTML = "<button type='button' value="+AmountDr+" class='btn bg-maroon btn-xs fa fa-trash' onclick='deleteDr(this)'></button>"
-			
+
+			var Result_BankDr = row.insertCell(4);
+				var debit_bank_input = document.createElement('input');
+				debit_bank_input.type='hidden';
+				debit_bank_input.name='drbank[]';
+				debit_bank_input.value=BankDr;
+				Result_BankDr.appendChild(debit_bank_input);
+
+			var Result_ChqDr = row.insertCell(5);
+				var debit_chq_input = document.createElement('input');
+				debit_chq_input.type='hidden';
+				debit_chq_input.name='drchq[]';
+				debit_chq_input.value=ChqDr;
+				Result_ChqDr.appendChild(debit_chq_input);
+		
 		return false;
 	}
 	
@@ -192,10 +198,22 @@ function noSpecialChar(evt){
 				Result_AmtCr.innerHTML = AmountCr;
 				Result_AmtCr.appendChild(credit_value_input);
 		
-		var DelCr = row.insertCell(3);
-		DelCr.innerHTML = "<button type='button' value="+AmountCr+" class='btn bg-maroon btn-xs fa fa-trash' onclick='deleteCr(this)'></button>"
+			var DelCr = row.insertCell(3);
+			DelCr.innerHTML = "<button type='button' value="+AmountCr+" class='btn bg-maroon btn-xs fa fa-trash' onclick='deleteCr(this)'></button>"
 		
-	
+			var Result_BankCr = row.insertCell(4);
+				var debit_bank_input = document.createElement('input');
+				credit_bank_input.type='hidden';
+				credit_bank_input.name='crbank[]';
+				credit_bank_input.value=BankCr;
+				Result_BankCr.appendChild(credit_bank_input);
+
+			var Result_ChqCr = row.insertCell(5);
+				var credit_chq_input = document.createElement('input');
+				credit_chq_input.type='hidden';
+				credit_chq_input.name='crchq[]';
+				credit_chq_input.value=ChqCr;
+				Result_ChqCr.appendChild(credit_chq_input);
 				
 		return false;
 	}

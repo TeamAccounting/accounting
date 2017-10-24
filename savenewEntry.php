@@ -1,23 +1,21 @@
 <?php 
 require_once('support/config.php');
 	if(isset($_POST['entry_date']) && isset($_POST['entry_description'])){
-
-// var_dump($_POST);
+// var_dump($insert['crvalues']);
 // 		die;
-		if ($_POST['crvalues'] > 10000) {
-
+		if (number_format($_POST['crvalues']) > number_format("10000")) {
 				$journal_num = $_POST['JournalNumber'];
 				$journalentry_id = $_POST['JournalID'];
 				$entry_date = $_POST['entry_date'];
 				$newDate = date("Y-m-d", strtotime($entry_date));
 				$drnames=$_POST['drnames'];
 				$drvalues=$_POST['drvalues'];
-				// $bankdr=$_POST['drbank'];
-				// $chqdr=$_POST['drchq'];
+				$bankdr=$_POST['drbank'];
+				$chqdr=$_POST['drchq'];
 				$crnames=$_POST['crnames'];
 				$crvalues=$_POST['crvalues'];
-				// $bankcr=$_POST['crbank'];
-				// $chqcr=$_POST['crchq'];
+				$bankcr=$_POST['crbank'];
+				$chqcr=$_POST['crchq'];
 				$descdr=$_POST['drdesc'];
 				$desccr=$_POST['crdesc'];
 				$entry_desc=$_POST['entry_description'];
@@ -25,41 +23,38 @@ require_once('support/config.php');
 				
 				$insert_journalentry = $connection->myQuery("INSERT INTO `cash_request` (`id`, `journal_entry_no`, `journal_id`, `date_of_entry`, `description`) VALUES (NULL, '$journalentry_id', '$journal_num','$newDate','$entry_desc')");
 				
-				$insert_entry =("INSERT INTO `journal_details` (`id`, `account_id`, `journal_entry_no`, `amount`,`is_debit`,`desc`) VALUES");
+				$insert_entry =("INSERT INTO `journal_details` (`id`, `account_id`, `journal_entry_no`, `amount`,`is_debit`,`desc`,`bank_name`,`chq_number`) VALUES");
 					
 					for($x = 0; $x <= count($drnames)-1; $x++)
 						{
-							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name ='$drnames[$x]'), $journalentry_id ,$drvalues[$x],1,'$descdr[$x]'),");
+							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name ='$drnames[$x]'), $journalentry_id ,$drvalues[$x],1,'$descdr[$x]','$bankdr[$x]','$chqdr[$x]'),");
 						}
 					
 					for($x = 0; $x <= count($crnames)-1; $x++)
 						{
-							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name = '$crnames[$x]'), $journalentry_id ,$crvalues[$x],0,'$desccr[$x]'),");
+							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name = '$crnames[$x]'), $journalentry_id ,$crvalues[$x],0,'$desccr[$x]','$bankcr[$x]','$chqcr[$x]'),");
 						}
 						// var_dump($insert_entry);
 				$fin_entry =  trim($insert_entry, ",").";";
 				echo $fin_entry;
 				$results = $connection -> myQuery($fin_entry);
-
 				redirect("journal_entry.php?id=$journal_num");	
 					 
 		} 
 
-		else {
-		
-				
+		else {	
 				$journal_num = $_POST['JournalNumber'];
 				$journalentry_id = $_POST['JournalID'];
 				$entry_date = $_POST['entry_date'];
 				$newDate = date("Y-m-d", strtotime($entry_date));
 				$drnames=$_POST['drnames'];
 				$drvalues=$_POST['drvalues'];
-				// $bankdr=$_POST['drbank'];
-				// $chqdr=$_POST['drchq'];
+				$bankdr=$_POST['drbank'];
+				$chqdr=$_POST['drchq'];
 				$crnames=$_POST['crnames'];
 				$crvalues=$_POST['crvalues'];
-				// $bankcr=$_POST['crbank'];
-				// $chqcr=$_POST['crchq'];
+				$bankcr=$_POST['crbank'];
+				$chqcr=$_POST['crchq'];
 				$descdr=$_POST['drdesc'];
 				$desccr=$_POST['crdesc'];
 				$entry_desc=$_POST['entry_description'];
@@ -67,22 +62,21 @@ require_once('support/config.php');
 				
 				$insert_journalentry = $connection->myQuery("INSERT INTO `journal_entries` (`id`, `journal_entry_no`, `journal_id`, `date_of_entry`, `description`) VALUES (NULL, '$journalentry_id', '$journal_num','$newDate','$entry_desc')");
 				
-				$insert_entry =("INSERT INTO `journal_details` (`id`, `account_id`, `journal_entry_no`, `amount`,`is_debit`,`desc`) VALUES");
+				$insert_entry =("INSERT INTO `journal_details` (`id`, `account_id`, `journal_entry_no`, `amount`,`is_debit`,`desc`,`bank_name`,`chq_number`) VALUES");
 					
 					for($x = 0; $x <= count($drnames)-1; $x++)
 						{
-							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name ='$drnames[$x]'), $journalentry_id ,$drvalues[$x],1,'$descdr[$x]'),");
+							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name ='$drnames[$x]'), $journalentry_id ,$drvalues[$x],1,'$descdr[$x]','$bankdr[$x]','$chqdr[$x]'),");
 						}
 					
 					for($x = 0; $x <= count($crnames)-1; $x++)
 						{
-							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name = '$crnames[$x]'), $journalentry_id ,$crvalues[$x],0,'$desccr[$x]'),");
+							$insert_entry=$insert_entry.("(NULL, (SELECT `acc_id` FROM accounts WHERE account_name = '$crnames[$x]'), $journalentry_id ,$crvalues[$x],0,'$desccr[$x]','$bankcr[$x]','$chqcr[$x]'),");
 						}
 						// var_dump($insert_entry);
 				$fin_entry =  trim($insert_entry, ",").";";
 				echo $fin_entry;
 				$results = $connection -> myQuery($fin_entry);
-
 				redirect("journal_entry.php?id=$journal_num");	
 					 
 				

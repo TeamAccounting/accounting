@@ -1,7 +1,7 @@
 <?php
 	require_once('support/config.php');
 	if(loggedId()){
-		addHead('Dashboard');
+		addHead('General Journal');
 		addNavBar();
 		addSideBar();
 	}else{
@@ -30,7 +30,6 @@
 					<th>ACCOUNT TITLE</th>
 					<th>DEBIT</th>
 					<th>CREDIT</th>
-					Test
 				</tr>
 			</thead>
 			<tbody>
