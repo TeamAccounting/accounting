@@ -29,14 +29,19 @@ CREATE TABLE `cash_request` (
   `description` varchar(255) DEFAULT NULL,
   `status_id` bigint(20) DEFAULT '1',
   `approver_id` bigint(20) DEFAULT '0',
+  `total_amount` varchar(255) DEFAULT NULL,
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `cash_request` */
 
-insert  into `cash_request`(`id`,`request_by`,`journal_entry_no`,`journal_id`,`date_of_entry`,`description`,`status_id`,`approver_id`) values 
-(1,0,17102,13,'2017-10-17','1111',1,0),
-(2,1,17102,13,'2017-10-11','test',1,1);
+insert  into `cash_request`(`id`,`request_by`,`journal_entry_no`,`journal_id`,`date_of_entry`,`description`,`status_id`,`approver_id`,`total_amount`) values 
+(1,1,17102,13,'2017-10-17','1111',1,1,'111'),
+(2,1,17102,13,'2017-10-11','test',1,1,'111'),
+(4,1,17106,13,'2017-10-18','test',1,1,'Array'),
+(5,1,17106,13,'2017-10-18','test',1,1,'Array'),
+(6,1,17106,13,'2017-10-17','test',1,1,'Array'),
+(7,1,17106,13,'2017-10-31','test',1,1,'Array');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
