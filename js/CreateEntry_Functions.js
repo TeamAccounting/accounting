@@ -172,17 +172,9 @@ function noSpecialChar(evt){
 
 			var Desc_Cr = row.insertCell(1);
 				var credit_desc_input = document.createElement('input');
-				var credit_bank_input = document.createElement('input');
-				var credit_chq_input = document.createElement('input');
 				credit_desc_input.type='hidden';
 				credit_desc_input.name='crdesc[]';
 				credit_desc_input.value=DescCr;
-				credit_bank_input.type='hidden';
-				credit_bank_input.name='crbank[]';
-				credit_bank_input.value=BankCr;
-				credit_chq_input.type='hidden';
-				credit_chq_input.name='crchq[]';
-				credit_chq_input.value=ChqCr;
 				if((y=="6")||(y=="7")){
 				Desc_Cr.innerHTML = DescCr+"<br>("+ChqCr+") "+BankCr;}
 				else{
