@@ -1,7 +1,7 @@
 <?php
 	require_once('support/config.php');
 	if(loggedId()){
-		addHead('General Journal');
+		addHead('Dashboard');
 		addNavBar();
 		addSideBar();
 	}else{
