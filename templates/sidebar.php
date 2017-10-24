@@ -4,6 +4,7 @@
   
   <ul class="sidebar-menu">
       <li class="header">Accounting Tools</li>
+
       <!-- Optionally, you can add icons to the links -->
 		<li class="treeview">
 				<a href="dash.php">
@@ -74,7 +75,19 @@
 					</li>
 			</ul>
 		</li>
-	  
+		<li class="header">Administrator</li>
+		<li class="treeview">
+				<a href="approval_flow.php">
+				<i class="fa fa-dashboard"></i> 
+				<span>Approval Flow</span>
+			</a>
+		</li>
+	<?php if ($_SESSION[APPNAME]['UserType']== "Approver" ): ?>
+		<li class="header">For Approval</li>
+		
+	<?php endif; ?>
+	   
+
 
 	  <?php
 	  
