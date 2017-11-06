@@ -55,9 +55,13 @@
 	function archive(id){
 	
 		//window.location ="/journal_entry.php?id=" + id;
-		var href = window.location.href;
-		var string = href.substr(0,href.lastIndexOf('/'))+"/php/archive_account.php?id=" + id;
-		window.location=string;
+		if (confirm("The record will be deleted. Are you sure?") == true) {
+            var href = window.location.href;
+			var string = href.substr(0,href.lastIndexOf('/'))+"/php/delete_avail_balance.php?id=" + id;
+			window.location=string;
+          } else {
+            return false;
+          }
 	}
 	
 	function edit(id){

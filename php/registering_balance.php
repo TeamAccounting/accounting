@@ -4,7 +4,7 @@
 		
 		$year=$_POST['year'];
 		$amount=$_POST['amount'];
-		$rowcount= $connection->myQuery("SELECT * FROM `available_balance` where `year` = '$year'")->rowcount();
+		$rowcount= $connection->myQuery("SELECT * FROM `available_balance` where `year` = '$year' and `is_deleted`=0")->rowcount();
 
 		if($rowcount>0){
 			setAlert("<center><strong>Input Year Already Exists: ".$year,'danger');
