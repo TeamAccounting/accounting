@@ -15,7 +15,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css"/>
 		<link rel="stylesheet" href="plugins/select2/select2.min.css"/>
 		<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+		<link rel="stylesheet" href="<?php echo str_repeat('../',$level) ?>plugins/datatables/extensions/RowReorder/css/rowReorder.dataTables.min.css">
 		<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 	</head>
-	
-<body class="skin-blue sidebar-mini sidebar fixed" >
+	<body class="hold-transition skin-blue-light fixed sidebar-mini">
+<!-- <body class="skin-blue sidebar-mini sidebar fixed" > -->

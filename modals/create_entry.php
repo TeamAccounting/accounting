@@ -172,14 +172,14 @@
 
 
 
- <script type="text/javascript" src="js/CreateEntry_Functions.js"></script>
+ <script type="text/javascript" src="js/CreateEntry_Functions1.js"></script>
  <script type="text/javascript">
 
  		
 		function GetCellValues() {
 			var amount = document.getElementById("credit_total");
 		  
-
+			// alert("wew");
 		    if (amount.value > 10000) {
 		    	alert("Value is morethan 10,000.00PHP, This is needed to be approved by the finance");
 			}

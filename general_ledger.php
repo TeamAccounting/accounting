@@ -2,8 +2,11 @@
 	require_once('support/config.php');
 	if(loggedId()){
 		addHead('General Ledger');
-		addNavBar();
-		addSideBar();
+		require_once("templates/navbar.php");
+		
+
+		require_once("templates/sidebar.php");
+		
 		if(isset($_POST['from_date'])&&isset($_POST['to_date'])){
 			$fromdate = $_POST['from_date'];
 			$todate = $_POST['to_date'];

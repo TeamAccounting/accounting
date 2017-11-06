@@ -18,7 +18,13 @@
 						$userId = $query['user_id'];
 						$_SESSION[APPNAME]['UserId'] = $userId;
 						$connection->myQuery("UPDATE `users` SET `is_logged_in` = '1' where user_id='$userId'");
+
+						insertAuditLog($_SESSION[APPNAME]['FullName'],"{$_SESSION[APPNAME]['FullName']} Logged in.");
+
+
+						
 						redirect('../dash.php');
+
 					}else{
 						setAlert('Wrong Username /Password','danger');
 						redirect('../index.php');

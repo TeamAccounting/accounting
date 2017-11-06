@@ -116,4 +116,29 @@ function getUserDetails($emp_id){
 	global $con;
 	   return $con->myQuery("SELECT * FROM users WHERE user_id=? LIMIT 1",array($emp_id))->fetch(PDO::FETCH_ASSOC);
 }
+
+function insertAuditLog($user, $action)
+{
+    #user,action,date
+    if (file_exists("./audit_log.txt")) {
+        $user=htmlspecialchars($user);
+        $action=htmlspecialchars($action);
+        $new_input=json_encode(array($user,$action,date('Y-m-d H:i:s')), JSON_PRETTY_PRINT);
+        $file = fopen("./audit_log.txt", "r+");
+        fseek($file, -4, SEEK_END);
+        fwrite($file, ",".$new_input."\n\t]\n}");
+        fclose($file);
+
+    } else {
+        $file = fopen("./audit_log.txt", "w+");
+
+        $data=json_encode(array("data"=>array(array("NONE","INITIAL START UP",date('Y-m-d H:i:s')))), JSON_PRETTY_PRINT);
+        fwrite($file, $data);
+        fclose($file);
+    }
+}
+
+
+
+
 ?>

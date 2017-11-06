@@ -2,8 +2,8 @@
   require_once('support/config.php');
   if(loggedId()){
     addHead('Cash Approval');
-    addNavBar();
-    addSideBar();
+   require_once("templates/sidebar.php");
+    require_once("templates/navbar.php");
   }else{
     redirect('index.php');
     setAlert('Please log in to continue','danger');
@@ -11,16 +11,32 @@
   
   if (!empty($_GET['journal_entry'])) {
     $id=$_GET['journal_entry'];
-    $journal_entry=$connection->myQuery("SELECT a.account_name, jd.account_id, jd.amount, jd.is_debit, cr.request_by, cr.journal_entry_no, cr.journal_id, cr.date_of_entry, cr.description, cr.status_id,cr.approver_id,cr.total_amount, u.full_name FROM cash_request cr 
+
+    $cjay_id=$connection->myQuery("SELECT journal_details_id from cash_request WHERE id =".$id)->fetch(PDO::FETCH_ASSOC);
+// echo $cjay_id['journal_details_id'];
+    $journal_id=explode(",", $cjay_id['journal_details_id']);
+
+    for($x = 0; $x <= count($journal_id)-1; $x++) {
+      // echo $journal_id[$x];
+    }
+   
+    $journal_entry=$connection->myQuery("SELECT a.account_name, jd.account_id, jd.amount, jd.is_debit, cr.request_by, cr.journal_entry_no, cr.journal_id, cr.date_of_entry, cr.description, cr.status_id,cr.approver_id,cr.total_amount, u.full_name, j.description AS journal_des, j.journal_date, jd.desc AS reason FROM cash_request cr 
       INNER JOIN users u ON cr.request_by=u.user_id
       INNER JOIN journal_details jd ON cr.journal_entry_no=jd.journal_entry_no
       INNER JOIN accounts a ON jd.account_id=a.acc_id
-      WHERE cr.journal_entry_no = ".$id)->fetchAll(PDO::FETCH_ASSOC);
+      INNER JOIN journals j ON cr.journal_id=j.journal_id
+      WHERE cr.id = ".$id ." AND jd.id in (".$cjay_id['journal_details_id'].")")->fetchAll(PDO::FETCH_ASSOC);
 
-      $date_modal=date_create($journal_entry['date_of_entry']);
+    $journal_date=$connection->myQuery("SELECT cr.id,cr.journal_id,j.journal_date,j.description FROM cash_request cr 
+      
+      INNER JOIN  journals j ON cr.journal_id=j.journal_id
+      WHERE cr.id=".$id)->fetch(PDO::FETCH_ASSOC);  
+      // var_dump($journal_entry);
+
+      // $date_modal=date_create($journal_entry['date_of_entry']);
       // var_dump($journal_entry);
       // die;
-
+// die;
   } 
 ?>
 
@@ -68,7 +84,10 @@
 
                                                 $approver_id = $_SESSION[APPNAME]['UserId'];
 
-                                                $organizations=$connection->myQuery("SELECT cr.request_by, cr.journal_entry_no, cr.journal_id, cr.date_of_entry, cr.description, cr.status_id,cr.approver_id,cr.total_amount, u.full_name FROM cash_request cr INNER JOIN users u ON cr.request_by=u.user_id  WHERE cr.approver_id = ".$approver_id)->fetchAll(PDO::FETCH_ASSOC);
+                                                $organizations=$connection->myQuery("SELECT cr.id,cr.request_by, cr.journal_entry_no, cr.journal_id, cr.date_of_entry, cr.description, cr.status_id,cr.approver_id,cr.total_amount, u.full_name, j.journal_date FROM cash_request cr 
+                                                  INNER JOIN users u ON cr.request_by=u.user_id  
+                                                  INNER JOIN  journals j ON cr.journal_id=j.journal_id
+                                                  WHERE cr.status_id='1' AND cr.approver_id = ".$approver_id)->fetchAll(PDO::FETCH_ASSOC);
                                                  
                                           
 
@@ -77,11 +96,11 @@
                                                 <tr>
                                                         
                                                         <td>
-                                                          <?php echo htmlspecialchars($row['date_of_entry']); ?>
+                                                          <?php echo htmlspecialchars($row['journal_date']); ?>
                                                         </td>
                                                         <td>
                                                          <?php 
-                                                          $date=date_create($row['date_of_entry']);
+                                                          $date=date_create($row['journal_date']);
                                                            
                                       
                                                           echo $date->format("F Y");
@@ -98,9 +117,9 @@
                                                         </td>
                                                        
                                                             <td>
-                                                                <a class='btn btn-sm btn-brand' href='cash_approval.php?journal_entry=<?php echo $row['journal_entry_no'] ;?>'><span class='fa fa-search'></span></a>
-                                                                <a class='btn btn-sm btn-brand' href='approve_changes.php?id=<?php echo $value;?>&type=customers'><span class='fa fa-check'></span></a>
-                                                                <a class='btn btn-sm btn-danger' href='reject_changes.php?id=<?php echo $value?>&type=customers' onclick='return confirm("Reject Request?.")'><span class='fa fa-close'></span></a>
+                                                                <a class='btn btn-sm btn-primary' href='cash_approval.php?journal_entry=<?php echo $row['id'] ;?>&type=approval'><span class='fa fa-search'></span></a>
+                                                                <a class='btn btn-sm btn-success' href='request_approved.php?id=<?php echo $row['id'];?>' onclick='return confirm("Approved Request?.")'><span class='fa fa-check'></span></a>
+                                                                <a class='btn btn-sm btn-danger' href='request_reject.php?id=<?php echo $row['id'];?>' onclick='return confirm("Reject Request?.")'><span class='fa fa-close'></span></a>
                                                             </td>
                                                         
                                                 </tr>
@@ -119,73 +138,7 @@
               </div><!-- /.box -->
             </div>
           </div><!-- /.row -->
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
-      <div class="modal-dialog modal-lg" role="document" style="width: 80%">
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-            <h4 class="modal-title" id="myModalLabel">
-
-              <table style="width:100%" border=0>
-                <tr>
-                  <td><b>Date Entry:</b> <?php  ?></td>
-                 
-                </tr>
-             
-              </table>
-             </h4>
-
-          </div>
-
-          <div class="modal-body"> 
-            
-
-            
-            <div class='panel-body ' >
-            <table class='table table-bordered table-condensed table-hover ' id='ResultTable1'>
-          
-              
-                <thead>
-                  <tr>
-                    <th class='text-center'>Account Title</th>
-                    <th class='text-center'>Debit</th>
-                    <th class='text-center'>Credit</th>
-                   
-
-                  </tr>
-                </thead>
-                <tbody> 
-                <?php foreach ($journal_entry as $rowss): ?>
-                   <tr>
-                    <td>
-                       <?php echo $rowss['account_name']; ?>
-                    </td>
-                    <?php if($rowss['is_debit'] == '0'): ?>
-                       <td>
-                         <?php echo $rowss['amount']; ?>
-                      </td><td></td>
-                    <?php else: ?>
-                       <td>
-                         <?php echo $rowss['amount']; ?>
-                      </td><td></td>
-                    <?php endif; ?>
-                  </tr>
-                <?php endforeach; ?>
-                </tbody>
-          
-              </table>
-              <div class="modal-footer">
-
-                <a class="btn btn-default" href='cash_approval.php' class='btn btn-sm btn-danger'>Close</a>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
+         <?php require_once("modals/cash_des.php"); ?>
         </section><!-- /.content -->
   </div>
 

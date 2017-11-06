@@ -2,8 +2,8 @@
 	require_once('support/config.php');
 	if(loggedId() && isset($_GET['id'])){
 		addHead('Edit Account');
-		addNavBar();
-		addSideBar();
+		require_once("templates/sidebar.php");
+		require_once("templates/navbar.php");
 		$acc_id = $_GET['id'];
 		$query = $connection->myQuery("SELECT * FROM accounts where acc_id = $acc_id ")->fetch(PDO::FETCH_ASSOC);
 		$account_name = $query['account_name'];

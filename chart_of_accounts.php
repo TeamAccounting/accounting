@@ -2,8 +2,8 @@
 	require_once('support/config.php');
 	if(loggedId()){
 		addHead('Chart Of Accounts');
-		addNavBar();
-		addSideBar();
+		require_once("templates/sidebar.php");
+		require_once("templates/navbar.php");
 	}else{
 		redirect('index.php');
 		setAlert('Please log in to continue','danger');
@@ -84,7 +84,7 @@
         dttable=$('#dataTables').DataTable({
                 //"scrollY":"400px",
                 "scrollX":"100%",
-                "searching": false,
+                "searching": true,
                 "processing": true,
                 "serverSide": true,
                 "select":true,

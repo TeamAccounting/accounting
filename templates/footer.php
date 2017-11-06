@@ -1,5 +1,6 @@
 <?php
 	include_once("modals/database_commands.php");	
+    unsetAlert();
 ?>
 </body>
 
@@ -43,6 +44,10 @@ $(function() {
             $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
         }
     });
+    $('.cbo').select2({
+        placeholder:$(this).data("placeholder"),
+            allowClear:$(this).data("allow-clear")
+          });
 });
 </script>
 

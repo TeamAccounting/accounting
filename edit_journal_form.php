@@ -2,8 +2,8 @@
 	require_once('support/config.php');
 	if(loggedId() && isset($_GET['id'])){
 		addHead('Edit Journal');
-		addNavBar();
-		addSideBar();
+		require_once("templates/sidebar.php");
+		require_once("templates/navbar.php");
 		$journal_id = $_GET['id'];
 		$query = $connection->myQuery("Select * From journals where journal_id = $journal_id")->fetch(PDO::FETCH_ASSOC);
 		$description = $query['description'];

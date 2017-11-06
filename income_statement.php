@@ -2,8 +2,8 @@
 	require_once('support/config.php');
 	if(loggedId()){
 		addHead('Income Statement');
-		addNavBar();
-		addSideBar();
+		require_once("templates/navbar.php");
+		require_once("templates/sidebar.php");
 		if(isset($_POST['from_date'])&&isset($_POST['to_date'])){
 			if($_POST['from_date']<=$_POST['to_date']){
 				$fromdate = $_POST['from_date'];

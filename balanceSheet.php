@@ -2,8 +2,8 @@
 	require_once('support/config.php');
 	if(loggedId()){
 		addHead('Balance Sheet');
-		addNavBar();
-		addSideBar();
+		require_once("templates/sidebar.php");
+		require_once("templates/navbar.php");
 		if(isset($_POST['fromDate'])&&isset($_POST['toDate'])){
 			if($_POST['fromDate']<=$_POST['toDate']){
 				$from_Date = $_POST['fromDate'];

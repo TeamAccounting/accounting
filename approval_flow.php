@@ -2,8 +2,8 @@
   require_once('support/config.php');
   if(loggedId()){
     addHead('Approval Flow');
-    addNavBar();
-    addSideBar();
+    require_once("templates/sidebar.php");
+    require_once("templates/navbar.php");
   }else{
     redirect('index.php');
     setAlert('Please log in to continue','danger');
@@ -83,13 +83,13 @@
                             </div>
                         </form>
                     </div>
-                    <form method="post" action="editprocess.php">
+                    <form method="post" action="edit_process.php">
                         <div class='panel panel-info'>
                         <table class="table sortable-table table-hover ">
                             <thead>
                                 <tr>
                                   <th class='text-center'>User</th>
-                                  <th class='text-center' style='max-width: 50px;width: 50px'>Action</th>
+                                  <th class='text-center' style='max-width: 100px;width: 100px'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,7 +101,7 @@
                                     <input type="hidden" name="user_id[]" value="<?php echo $row['user_id']?>">
                                     <?php echo htmlspecialchars($row['user']) ?>
                                     </td>
-                                    <td>
+                                    <td class='text-center'>
                                         <a href='remove_flow.php?id=<?php echo $row['id']?>' class='btn btn-sm btn-danger' onclick='return confirm("Remove this user from the process.")'><span class='fa fa-close'></span></a>
                                     </td>
                                 </tr>
@@ -124,7 +124,17 @@
             </div>
         </section><!-- /.content -->
   </div>
-  <script type="text/javascript" src='js/jquery-sortable.js'></script>
+ <script type="text/javascript" src='js/jquery-sortable.js'></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $('.sortable-table').sortable({
+            containerSelector: 'table',
+            itemPath: '> tbody',
+            itemSelector: 'tr',
+            placeholder: '<tr class="placeholder"/>'
+          })
+      });
+  </script>
 
 
 <?php

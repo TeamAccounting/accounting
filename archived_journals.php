@@ -2,8 +2,8 @@
 	require_once('support/config.php');
 	if(loggedId()){
 		addHead('Archived Journals');
-		addNavBar();
-		addSideBar();
+		require_once("templates/sidebar.php");
+		require_once("templates/navbar.php");
 	}else{
 		redirect('index.php');
 		setAlert('Please log in to continue','danger');
