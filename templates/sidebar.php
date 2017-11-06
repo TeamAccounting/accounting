@@ -49,6 +49,11 @@
 						<span>Trial Balance</span>
 						</a>
 					</li>
+					<li><a href="additional_cash.php">
+						<i class="fa fa-file-text"></i>
+						<span>Additional Cash</span>
+						</a>
+					</li>
 					
 			</ul>
 		</li>
@@ -135,6 +140,11 @@
 						<li><a href='#'>
 							<i class='fa fa-folder-o'></i>
 							<span>Audit Trail</span>
+							</a>
+						</li>
+						<li><a href='available_balance.php'>
+							<i class='fa fa-folder-o'></i>
+							<span>Available Balance</span>
 							</a>
 						</li>
 					</ul>
