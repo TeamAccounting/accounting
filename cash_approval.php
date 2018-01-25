@@ -59,6 +59,7 @@
             <div class='col-md-12'>
               <?php 
                 Alert();
+                unsetAlert();
               ?>
               <div class="box box-primary">
                 <div class="box-body">
@@ -118,6 +119,7 @@
                                                        
                                                             <td>
                                                                 <a class='btn btn-sm btn-primary' href='cash_approval.php?journal_entry=<?php echo $row['id'] ;?>&type=approval'><span class='fa fa-search'></span></a>
+                                                              
                                                                 <a class='btn btn-sm btn-success' href='request_approved.php?id=<?php echo $row['id'];?>' onclick='return confirm("Approved Request?.")'><span class='fa fa-check'></span></a>
                                                                 <a class='btn btn-sm btn-danger' href='request_reject.php?id=<?php echo $row['id'];?>' onclick='return confirm("Reject Request?.")'><span class='fa fa-close'></span></a>
                                                             </td>

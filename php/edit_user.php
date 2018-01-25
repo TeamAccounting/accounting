@@ -14,8 +14,9 @@
 			
 			$fullname=$_POST['name'];
 			$account=$_POST['account'];
+			$dep=$_POST['dep'];
 			$password = encryptIt($_POST['password']);
-			$query= $connection->myQuery("UPDATE `users` SET `full_name` = '$fullname', `username` = '$username', `password` = '$password', `user_type` = '$account' WHERE `users`.`user_id` = $users_id");
+			$query= $connection->myQuery("UPDATE `users` SET `full_name` = '$fullname', `username` = '$username', `password` = '$password', `user_type` = '$account', `department_id` = '$dep' WHERE `users`.`user_id` = $users_id");
 			setAlert("<strong>Sucessfully</strong> changed user info",'success');
 			redirect('../edit_userform.php?id='.$users_id);
 		}

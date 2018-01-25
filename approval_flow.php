@@ -9,8 +9,23 @@
     setAlert('Please log in to continue','danger');
   }
   
-    $data=$connection->myQuery("SELECT ru.id,ru.user_id,u.full_name as user FROM approval_flow ru LEFT JOIN users u ON ru.user_id=u.user_id ORDER BY ru.id ASC");
-    $users=$connection->myQuery("SELECT u.user_id, u.full_name as user FROM users u WHERE u.user_id NOT IN (SELECT user_id FROM approval_flow)")->fetchAll(PDO::FETCH_ASSOC);
+    $data=$connection->myQuery("SELECT ru.id,ru.user_id,CONCAT(u.full_name,' (',ut.name,')') as user FROM approval_flow ru
+
+     LEFT JOIN users u ON ru.user_id=u.user_id
+
+     INNER JOIN user_type ut ON u.user_type=ut.id
+
+     ORDER BY ru.id ASC");
+
+
+    $users=$connection->myQuery("SELECT u.user_id, CONCAT(u.full_name,' (',ut.name,')') as user FROM users u
+      INNER JOIN user_type ut ON u.user_type=ut.id
+     WHERE u.is_deleted='0' AND u.user_id NOT IN (SELECT user_id FROM approval_flow)")->fetchAll(PDO::FETCH_ASSOC);
+
+
+   $finance_approver= $connection->myQuery("SELECT * FROM finance_approver")->fetch(PDO::FETCH_ASSOC);
+
+   echo $finance_approver['user_id'];
 	// makeHead("Approval Flow");
 ?>
 
@@ -66,12 +81,13 @@
                     <div class='row'>
                         <?php
                             Alert();
+                            unsetAlert();
                         ?>
                         <form method='post' action='save_approval_flow.php' class='form-horizontal'>
                             <div class='form-group'>
                             <label class='col-md-2'>Add User to process</label>
                             <div class='col-xs-12 col-md-8'>
-                                <select class='select2 form-control' name='user_id' required="" data-placeholder="Select user to be added.">
+                                <select class='select2 form-control cbo' name='user_id' required="" data-placeholder="Select user to be added.">
                                     <?php 
                                         echo makeOptions($users);
                                     ?>
@@ -88,15 +104,26 @@
                         <table class="table sortable-table table-hover ">
                             <thead>
                                 <tr>
+                                <th class='text-center' style='max-width: 100px;width: 100px'>Step</th>
                                   <th class='text-center'>User</th>
                                   <th class='text-center' style='max-width: 100px;width: 100px'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+
+                            
                             <?php
+                            $ctr = 0;
                                 foreach ($data as $key => $row):
                             ?>
                                 <tr>
+                                    <th class='text-center'>
+                                    <?php
+                                    $ctr++;
+                                    echo $ctr;
+                                    ?>
+                                    </th>
+
                                     <td>
                                     <input type="hidden" name="user_id[]" value="<?php echo $row['user_id']?>">
                                     <?php echo htmlspecialchars($row['user']) ?>
@@ -119,6 +146,36 @@
                         </table>
                         </div>
                     </form>
+                    
+                    </div>
+                </div>
+            </div>
+            
+            <div class='box'>
+               <div class='box-body'>
+
+                    <div class='col-xs-12 col-md-8 col-md-offset-2'>
+                    <div class='row'>
+                         <form method='post' action='save_finance_approver.php' class='form-horizontal'>
+                                        <div class='form-group'>
+                                        <label class='col-md-3'>Finance Approver/Final Approver</label>
+                                        <div class='col-xs-12 col-md-6'>
+                                            <select class='form-control cbo' name='finance_id' required="" data-placeholder="Select finance approver." <?php echo !(empty($finance_approver))?"data-selected='".$finance_approver['user_id']."'":NULL ?> required>
+
+
+                                           
+                                        
+                                                <?php 
+                                                    echo makeOptions($users);
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class='col-sm-12 col-md-3' style=''>
+                                            <button type='submit' class='btn btn-brand'><span class='fa fa-'></span> Save</button>
+                                        </div>
+                                        </div>
+                          </form>
+                    </div>
                     </div>
                 </div>
             </div>

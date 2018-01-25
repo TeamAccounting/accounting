@@ -44,7 +44,7 @@ array(
                 //     $action_buttons.="<a class=' btn btn-sm btn-success btn-flat' title='View Details' href='forApprovalDetails.php?id={$d}'><span class='fa fa-eye'></span></a>&nbsp";
                 //     $action_buttons.="<button class='btn btn-sm btn-danger btn-flat'  title='Reject Loan Application' onclick='reject(\"{$row['loan_code']}\")'><span  class='fa fa-close'></span></button>&nbsp;";
                 // endif;
-          	$action_buttons.=" <button type='submit' class='btn btn-success' id='btn-view' data-toggle='tooltip' data-placement='top' title='Open Journal' onclick='redirect({$d});' name='btnview'><i class='fa fa-eye'> </i></button>";
+          	$action_buttons.=" <button type='submit' class='btn btn-success' id='btn-view' data-toggle='tooltip' data-placement='top' title='Open Journal' onclick='redirect({$d});' name='btnview'><i class='fa fa-eye'> </i></button>&nbsp";
 
 			
 

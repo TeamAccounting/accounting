@@ -62,7 +62,7 @@
 	}
 	
 	function edit(id){
-	
+		// alert("wew");
 		//window.location ="/journal_entry.php?id=" + id;
 		var href = window.location.href;
 		var string = href.substr(0,href.lastIndexOf('/'))+"/edit_account.php?id=" + id;

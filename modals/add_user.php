@@ -7,6 +7,8 @@
               user_type
             FROM users
             ");
+
+  $user_type=$connection->myQuery("SELECT * FROM user_type WHERE is_deleted=0")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="modal fade" id='modal_adduser'>
@@ -27,11 +29,14 @@
       <!--         Confirm Password
                 <input type="text" class="form-control" required> -->
               User Type
-        			  <select name='account' required class="form-control">
-          				<option> </option>
-          				<option value="Administrator"> Administrator </option>
-          				<option value="Accountant"> Accountant </option>
-        			  </select>				
+        			  
+                <select class='form-control' name='account' data-allow-clear='True' data-placeholder='Select User Type' required>
+                                                        <
+                    <?php echo makeOptions($user_type); ?>
+                                                     
+                                                        
+                                                           
+                </select>
             </div>
           </div>
           <div class="modal-footer">

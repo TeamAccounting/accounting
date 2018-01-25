@@ -44,12 +44,13 @@ array(
                 //     $action_buttons.="<a class=' btn btn-sm btn-success btn-flat' title='View Details' href='forApprovalDetails.php?id={$d}'><span class='fa fa-eye'></span></a>&nbsp";
                 //     $action_buttons.="<button class='btn btn-sm btn-danger btn-flat'  title='Reject Loan Application' onclick='reject(\"{$row['loan_code']}\")'><span  class='fa fa-close'></span></button>&nbsp;";
                 // endif;
-          	$action_buttons.=" <button type='submit' class='btn btn-success' id='btn-view' data-toggle='tooltip' data-placement='top' title='Open Journal' onclick='redirect({$d});' name='btnview'><i class='fa fa-eye'> </i></button>";
-
-			$action_buttons.= "<button type='submit' class='btn bg-maroon ' id='btn-edit' name='btnedit' data-toggle='tooltip' data-placement='top' title='Edit Journal Info'  onclick='edit({$d})'><i class='fa fa-edit'> </i></button>";
+          	$action_buttons.=" <button type='submit' class='btn btn-success' id='btn-view' data-toggle='tooltip' data-placement='top' title='Open Journal' onclick='redirect({$d});' name='btnview'><i class='fa fa-eye'> </i></button>&nbsp";
+            if($_SESSION[APPNAME]['UserType'] <> 4):
+			$action_buttons.= "<button type='submit' class='btn bg-maroon ' id='btn-edit' name='btnedit' data-toggle='tooltip' data-placement='top' title='Edit Journal Info'  onclick='edit({$d})'><i class='fa fa-edit'> </i></button>&nbsp";
 
 			$action_buttons.="<button type='submit' class='btn btn-warning' id='btn-archive' name='btnarchive' data-toggle='tooltip' data-placement='top' title='Archive this journal'  onclick='archive({$d});'><i class='fa fa-file-archive-o'> </i></button>";
                 //reject(\"{$row['id']}\")   --------- forApprovalDetails.php?id={$d}
+            endif;
             return $action_buttons;
 
 

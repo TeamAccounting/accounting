@@ -1,11 +1,11 @@
 <?php
 	require_once('../support/config.php');
 	if(isset($_POST['acctno']) && isset($_POST['acctname']) && isset($_POST['accttype'])){
-		
+		var_dump($_POST);
 		$acct_no=$_POST['acctno'];
 		$acct_name=$_POST['acctname'];
-		$rowcount= $connection->myQuery("SELECT * FROM `accounts` where `account_name` = '$acct_name' AND `acc_id` != $acct_no")->rowcount();
-
+		$rowcount= $connection->myQuery("SELECT * FROM `accounts` WHERE `account_name` = '$acct_name' AND `acc_id` != '$acct_no'")->rowcount();
+		// die;
 		if($rowcount>0){
 			setAlert("<center><strong>Uhh ohh!</strong> The account number and account name chosen was existing already</center>",'danger');
 			redirect('../chart_of_accounts.php?id='.$acct_no);

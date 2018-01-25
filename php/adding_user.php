@@ -1,13 +1,16 @@
 <?php
 	require_once('../support/config.php');
-	if(loggedId()&&isset($_POST['username'] )){
+	var_dump($_POST);
+	// die;
+	if(!empty($_POST['username'] )){
 		
 		$username=$_POST['username'];
-		$rowcount= $connection->myQuery("SELECT * FROM users where username = '$username'")->rowcount();
-		
+		echo $rowcount= $connection->myQuery("SELECT * FROM users where username = '$username' AND is_deleted='0'")->rowcount();
+		// die;
 		
 		if($rowcount>0){
-			setAlert("<strong>Uhh ohh</strong> Someone already has that username",'danger');
+
+			setAlert("<strong>Uhh ohh</strong> Username already exist",'danger');
 			redirect('../users.php');
 		}else{
 		$fullname=$_POST['fullname'];
@@ -16,8 +19,12 @@
 		
 		$query = $connection->myQuery("INSERT INTO `users` (`user_id`, `full_name`, `username`, `password`, `user_type`, `is_deleted`, `is_logged_in`) VALUES (NULL, '$fullname', '$username', '$password', '$account', '0', '0')");
 		setAlert("<strong>Added</strong> a new account",'success');
+
+		
 		redirect('../users.php');
 		}
+
+
 	}else{
 		
 	}

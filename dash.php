@@ -8,61 +8,164 @@
 		redirect('index.php');
 		setAlert('Please log in to continue','danger');
 	}
-	
+	$data=$connection->myQuery("SELECT
+ 							d.department_name, d.department_head_id, u.full_name, d.id, d.is_deleted, d.allowance
+                        FROM department d
+                        INNER JOIN users u ON d.department_head_id=u.user_id
+                    	WHERE d.is_deleted = 0");
 
 ?>
 
-<div class="content-wrapper fixed" >
-<!-- add content here-->
-	<br>
-	<div class="col-lg-12">
-		<div class="box box-primary">
-		<div class="box box-header with-border">
-			<center>
-				<i class="fa fa-bar-chart-o" > <h3 class="box-title" >Net Income This Period</h3></i>
-				<a class="btn pull-right" onclick="enlargeChart('Net Income This Period','net')" role="button">Enlarge <i class="fa fa-search"></i></a>
-			</center>
-		</div>
-		</div>
-		<div class="box box-body">
-			 <div id="linegraph" class="table-responsive"  style="width:100%px;height:40vh;"></div>
-		</div>
-	</div>
-	
-	<div class=" col-lg-6">
-		<div class="box box-primary">
-		<div class="box box-header with-border">
-			<i class="fa fa-bar-chart-o" > <h3 class="box-title" >Expenses Per Month</h3></i>
-			<a class="btn pull-right" onclick="enlargeChart('Expenses Per Month','expense')" role="button">Enlarge <i class="fa fa-search"></i></a>
-		</div>	
-		</div>
-		<div class="box box-body">
-			 <div id="linegraph1" class="table-responsive" style="width:50%px;height:25vh;"></div>
-		</div>
-		
-	</div>
+<div class="content-wrapper">
+    <section class="content-header">
+          	<h1 class='page-header text-center text-primary'>
+              Dashboard
+            </h1> 
+    </section>
+    <!-- Content Header (Page header) -->
+    <?php
+    $date = week_range();
 
 
-	<div class="col-lg-6">
-				<div class="box box-primary">
-		<div class="box box-header with-border">
-			<i class="fa fa-bar-chart-o" > <h3 class="box-title" >Income</h3></i>
-			<a class="btn pull-right" onclick="enlargeChart('Income for the period','income')" role="button">Enlarge <i class="fa fa-search"></i></a>
-		</div>
-		</div>
+// $date['1'];
+// echo $date['2'];
 
-		<div class="box box-body">
-			 <div id="linegraph2" class="table-responsive" style="width:50%px;height:25vh;"></div>
-		</div>
-	</div>
+	$from = date('Y-m-d', strtotime($date['1']));
+	$to = date('Y-m-d', strtotime($date['2']));
+
+	$overall_expense=$connection->myQuery("SELECT
+ 							SUM(jd.amount) as amount, jd.request_by, u.department_id, d.id, jd.date_of_entry, jd.status_id
+                        FROM journal_details jd
+                        INNER JOIN users u ON jd.request_by=u.user_id
+                        INNER JOIN department d ON jd.request_by=d.department_head_id
+                        WHERE jd.date_of_entry between '$from' and '$to' AND jd.is_debit=0 AND jd.status_id = 2")->fetch(PDO::FETCH_ASSOC);
+
+	$total_expense = $overall_expense['amount'];
+
+	$budget= $connection->myQuery("SELECT * FROM budget_per_week LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+
+	if(empty($total_expense)) {
+		$total_expense = 0;
+	}
+
+	// if ($current_expense['date_of_entry'] > $date['1']) {
+	// 	echo "wew";
+	// }
+  $percent = (($total_expense/$budget['budget'])*100);
+	$percentage1 = (($total_expense/$budget['budget'])*100)."%";
+    ?>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class= "col-md-12">
+      <div class="row">
+        <div class= "box box-primary">
+          <div class="box-header with-border">
+            <?php if($_SESSION[APPNAME]['UserType'] == 2): ?>
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-aqua">
+                    <div class="inner">
+                      <h3>Accounting</h3>
+
+                      Overall Expenses:<br><font size='6px'><?php echo htmlspecialchars($total_expense)?> PHP</font>
+        	            </div>&nbsp<b><font size='4px'>
+        	            <?php echo  round($percentage1, 2); ?>%</font></b> Overall expenses for this week<br>
+        	            <div style="width: 100%">
+                      
+
+                			  <div class="col-md-12">
+                				  <div class="progress">
+                				    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $percentage1; ?>">
+                				      <span class="sr-only"></span>
+                				    </div>
+                				  </div>
+                			  </div>
+                        <br><br>
+                      </div>
+                    
+                      <a href="budget_per_week.php" class="small-box-footer">
+                        View weekly budget <i class="fa fa-arrow-circle-right"></i>
+                      </a>
+                  </div>
+                </div>
+            <?php endif; ?>
+        
+
+              <?php while($row = $data->fetch(PDO::FETCH_ASSOC)): 
 
 
 
 
+                            $current_expense=$connection->myQuery("SELECT SUM(jd.amount) as amount, jd.request_by, u.department_id, d.id, jd.date_of_entry, jd.status_id
+                                      FROM journal_details jd
+                                      INNER JOIN users u ON jd.request_by=u.user_id
+                                      INNER JOIN department d ON jd.request_by=d.department_head_id
+                                      WHERE jd.date_of_entry between '$from' and '$to' AND jd.is_debit=0 AND jd.status_id = 2 AND d.id=".$row['id'])->fetch(PDO::FETCH_ASSOC);
 
-</div>
-	
+                  $total_credit = $current_expense['amount'];
+                  if(empty($total_credit)) {
+                  	$total_credit = 0;
+                  }
 
+                  // if ($current_expense['date_of_entry'] > $date['1']) {
+                  // 	echo "wew";
+                  // }
+                  $percentage = (($total_credit/$row['allowance'])*100)."%";
+                  // $percentage ='100%';
+                    
+
+                                          
+                  ?>
+                    <?php if($_SESSION[APPNAME]['UserType'] == 2 || $row['department_head_id'] == $_SESSION[APPNAME]['UserId']): ?>
+
+                        <div class="col-lg-3 col-xs-6">
+                     
+                            <!-- small box -->
+                            <div class="small-box bg-aqua">
+                              <div class="inner">
+                                <h3><?php echo htmlspecialchars($row['department_name'])?></h3>
+
+                                Current Expenses:<br><font size='6px'><?php echo htmlspecialchars($total_credit)?> PHP</font>
+                  	            </div>&nbsp<b><font size='4px'>
+                  	            <?php echo  round($percentage, 2); ?>%</font></b> Expenses for this week<br>
+                  	            <div style="width: 100%">
+                                
+
+                          			  <div class="col-md-12">
+                          				  <div class="progress">
+                          				    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $percentage; ?>">
+                          				      <span class="sr-only"></span>
+                          				    </div>
+                          				  </div>
+                          			  </div>
+                                  <br><br>
+                                </div>
+                                <?php if($_SESSION[APPNAME]['UserType'] == 2): ?>
+                                  <a href="department.php" class="small-box-footer">
+                                <?php elseif($row['department_head_id'] == $_SESSION[APPNAME]['UserId']): ?>
+                                  <a href="dep_journal_entry.php?id=<?php echo $_SESSION[APPNAME]['UserId']; ?>" class="small-box-footer">
+                                    
+                                <?php endif; ?>
+                                    More info <i class="fa fa-arrow-circ{}e-right"></i>
+                                  </a>
+
+                            </div>
+                          </div>
+
+                    <?php endif; ?>
+                          <!-- /.col -->
+                          
+              <?php endwhile; ?>
+
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
 
 
 

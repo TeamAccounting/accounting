@@ -22,12 +22,12 @@
 		try {
 			$connection->myQuery("INSERT INTO approval_flow(user_id) VALUES(?)",array($_POST['user_id']));
 			$connection->commit();
-			Alert("User Added.","success");
+			setAlert("User Added.","success");
 			redirect("approval_flow.php");
 			die;
 		} catch (Exception $e) {
 			$db->rollBack();
-			Alert('Please try again.',"danger");
+			setAlert('Please try again.',"danger");
 			redirect("approval_flow.php");
 			die;
 		}

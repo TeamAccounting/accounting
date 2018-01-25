@@ -43,7 +43,7 @@
 				</div>
 	
 				<div class="input-group date input-group-sm" data-provide="datepicker">
-					<input type="text" placeholder="mm/dd/yyyy" name="entry_date" class="form-control" required>
+					<input type="text" placeholder="mm/dd/yyyy" name="entry_date" value="<?php echo date('m/d/Y'); ?>" class="form-control" required>
 					<div class="input-group-addon">
 						<span class="glyphicon glyphicon-calendar"></span>
 					</div>
@@ -172,7 +172,7 @@
 
 
 
- <script type="text/javascript" src="js/CreateEntry_Functions1.js"></script>
+ <script type="text/javascript" src="js/CreateEntry_Functions.js"></script>
  <script type="text/javascript">
 
  		

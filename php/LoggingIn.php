@@ -8,6 +8,7 @@
 		$query = $connection -> myQuery("SELECT * FROM users WHERE username='$userName' AND password='$password'")->fetch(PDO::FETCH_ASSOC);
 		
 		if($query['is_deleted']==0){
+			
 			if(!isset($_SESSION[APPNAME]['UserId'])){
 				// if($query['is_logged_in']==0){
 					if(decryptIt($query['password'])==decryptIt($password)){
@@ -34,6 +35,7 @@
 					// redirect('../index.php');
 				// }
 			}else{
+
 				if(decryptIt($query['password'])==decryptIt($password)){
 					//echo 'log in good';
 						$_SESSION[APPNAME]['UserName']=$query['username'];

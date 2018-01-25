@@ -3,12 +3,12 @@
 		if(isset($_POST['date'])&&isset($_POST['desc'])&&isset($_POST['id'])){
 			$journaldate=$_POST['date'];
 			$date=new DateTime($journaldate);
-			$newdate = $date->format('Ym');
+			echo $newdate = $date->format('Ym');
 			$desc=$_POST['desc'];
 			$journal_id=$_POST['id'];
 			$rowcount= $connection->myQuery("SELECT * FROM journals where DATE_FORMAT(journal_date,'%Y%m') = $newdate AND journal_id != $journal_id")->rowcount();
-			//echo $rowcount;
-			
+			echo $rowcount;
+			// die;
 			
 		
 		if($rowcount>0){

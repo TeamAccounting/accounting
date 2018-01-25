@@ -53,6 +53,7 @@
 			$.get('php/database_commands.php',{command:arg}, function(response){
 				console.log(response);
 			});
+			// alert('wew');
 		}
 		if(arg=='restore'){
 			if(document.getElementById('backups').value!=""){

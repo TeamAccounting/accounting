@@ -15,11 +15,13 @@
 <div class="content-wrapper">
 
 	<div class="box">
+	<?php if (empty($_GET['type'])): ?>
 		<div class="box-body">
-				<input type="text" class="container-fluid" size="30" name="search" placeholder="Search">
-				<button type="submit" class="btn btn-primary" id="btn-search" name="btnsearch"><i class="fa fa-search"></i> </button>
+				<!-- <input type="text" class="container-fluid" size="30" name="search" placeholder="Search">
+				<button type="submit" class="btn btn-primary" id="btn-search" name="btnsearch"><i class="fa fa-search"></i> </button> -->
 				<button type="submit" class="btn btn-primary pull-right" id="btn-add" onclick='createEntry()' name="btnadd"><i class="fa fa-plus"> Add Journal Entry</i></button>
 		</div>
+	<?php endif; ?>
 	<div class="box-body">
 
 		<table id="table" class="table responsive-table table-bordered table-striped">
@@ -34,14 +36,21 @@
 			</thead>
 			<tbody>
 				<?php
+
+				if($_SESSION[APPNAME]['UserType'] ==4) { 
+					$and = "AND journal_details.request_by = ".$_SESSION[APPNAME]['UserId'];
+				} else {
+					$and = "";
+				}
 				$journal_no = $_GET['id'];
 					$entriestable = $connection -> myQuery("SELECT 
 							journal_entries.journal_entry_no,
-							date_of_entry,
+							journal_entries.date_of_entry,
 							description
 						FROM journal_entries
 						INNER JOIN journal_details on journal_entries.journal_entry_no = journal_details.journal_entry_no  
-						where journal_entries.journal_id=$journal_no 
+						where journal_entries.journal_id={$journal_no} {$and}
+
 						GROUP by journal_entries.journal_entry_no");
 						
 					$entrydetailtable=$connection -> myQuery("SELECT

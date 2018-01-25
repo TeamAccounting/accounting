@@ -1,0 +1,419 @@
+{
+    "data": [
+        [
+            "NONE",
+            "INITIAL START UP",
+            "2017-11-24 16:17:38"
+        ]
+   ,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-11-24 16:17:44"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 09:20:42"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 11:06:17"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-27 14:06:40"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-11-27 14:13:29"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-11-27 14:44:29"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-11-27 14:45:20"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 14:57:19"
+]
+,[
+    "CJAY",
+    "CJAY Logged out.",
+    "2017-11-27 15:36:14"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-27 16:54:54"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 16:54:58"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-27 16:54:59"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 16:55:02"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-27 16:55:36"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 16:55:39"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-27 16:56:34"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-11-27 16:56:38"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-11-27 17:18:56"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-27 17:18:59"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-28 10:08:07"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-28 10:24:24"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-11-28 10:24:36"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-28 11:21:56"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-28 11:22:11"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-28 11:28:47"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-11-28 12:00:15"
+]
+,[
+    "www",
+    "www Logged in.",
+    "2017-11-28 12:01:57"
+]
+,[
+    "www",
+    "www Logged out.",
+    "2017-11-28 12:01:59"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-28 12:02:27"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-28 13:04:35"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-28 13:04:39"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-11-28 13:04:49"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-11-28 13:04:54"
+]
+,[
+    "CJAY",
+    "CJAY Logged out.",
+    "2017-11-28 13:05:03"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-11-28 13:05:10"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-11-28 13:05:21"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-11-28 13:23:32"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-01 11:17:16"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-05 11:36:17"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-05 13:51:32"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-12-05 14:06:15"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-05 14:08:03"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-12-06 10:18:21"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-12-06 10:25:57"
+]
+,[
+    "www",
+    "www Logged in.",
+    "2017-12-06 10:26:12"
+]
+,[
+    "www",
+    "www Logged out.",
+    "2017-12-06 10:26:33"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-06 10:26:38"
+]
+,[
+    "CJAY",
+    "CJAY Logged out.",
+    "2017-12-06 10:39:51"
+]
+,[
+    "www",
+    "www Logged in.",
+    "2017-12-06 10:39:58"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-06 14:28:08"
+]
+,[
+    "www",
+    "www Logged out.",
+    "2017-12-06 14:31:30"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-12-06 14:31:41"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-07 17:32:18"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-12-07 17:33:26"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-12-07 17:33:42"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-12-07 17:34:02"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-09 13:31:38"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-12-09 13:38:52"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-12-09 13:39:06"
+]
+,[
+    "CJAY",
+    "CJAY Logged out.",
+    "2017-12-09 13:39:22"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-12-09 13:39:32"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-12-09 13:40:05"
+]
+,[
+    "jordan",
+    "jordan Logged in.",
+    "2017-12-09 13:40:11"
+]
+,[
+    "jordan",
+    "jordan Logged out.",
+    "2017-12-09 13:49:18"
+]
+,[
+    "jordan",
+    "jordan Logged in.",
+    "2017-12-09 13:50:35"
+]
+,[
+    "jordan",
+    "jordan Logged out.",
+    "2017-12-09 18:52:19"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-12-09 18:52:29"
+]
+,[
+    "superadmin",
+    "superadmin Logged out.",
+    "2017-12-09 18:52:53"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-12-09 18:52:59"
+]
+,[
+    "CJAY",
+    "CJAY Logged out.",
+    "2017-12-09 18:58:58"
+]
+,[
+    "jordan",
+    "jordan Logged in.",
+    "2017-12-09 18:59:05"
+]
+,[
+    "jordan",
+    "jordan Logged out.",
+    "2017-12-09 19:00:16"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-12-09 19:00:24"
+]
+,[
+    "Peter",
+    "Peter Logged in.",
+    "2017-12-09 22:34:08"
+]
+,[
+    "Peter",
+    "Peter Logged out.",
+    "2017-12-09 22:34:29"
+]
+,[
+    "superadmin",
+    "superadmin Logged in.",
+    "2017-12-09 22:34:35"
+]
+,[
+    "CJAY",
+    "CJAY Logged in.",
+    "2017-12-09 22:36:26"
+]
+,[
+    "Cjay Conocono",
+    "Cjay Conocono Logged in.",
+    "2018-01-08 11:32:58"
+]
+,[
+    "Cjay Conocono",
+    "Cjay Conocono Logged out.",
+    "2018-01-08 11:33:09"
+]
+,[
+    "Cjay Conocono",
+    "Cjay Conocono Logged in.",
+    "2018-01-08 14:15:40"
+]
+,[
+    "Cjay Conocono",
+    "Cjay Conocono Logged out.",
+    "2018-01-08 14:15:54"
+]
+,[
+    "Cjay Conocono",
+    "Cjay Conocono Logged in.",
+    "2018-01-08 15:00:36"
+]
+	]
+}

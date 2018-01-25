@@ -5,7 +5,7 @@ class MyPDO extends PDO{
 		private $dbase;
 		private $host;
 
-		public function __construct($dbase,$user="root",$pword="password",$host="127.0.0.1")
+		public function __construct($dbase,$user="root",$pword="secretpassword",$host="127.0.0.1")
 		{
 			if(empty($dbase))
 			{

@@ -2,11 +2,22 @@
 	session_start();
 	define("APPNAME","Accounting System");
 	error_reporting(E_ALL);
+
+	date_default_timezone_set("Asia/Manila");
+
+	define("DATE_FORMAT_PHP", "m/d/Y");
+	define("DATE_FORMAT_SQL", "%m/%d/%Y");
+	define("TIME_FORMAT_SQL", "%h:%i %p");
+	define("TIME_FORMAT_PHP", "h:i A");
 	//define("BACKUP_PATH", "C:\\xampp\\htdocs\\SGTSI_AccountingSystem\\DatabaseBackups\\");
 	//$server_name='accounting.sparkglobaltech.com/';
 	$database = 'accounting1';
 	$username = 'root';
 	$password = '';
+
+	
+	
+
 	
 	//UI//
 	function addHead($pageTitle=APPNAME,$DirectoryLevel=0){
@@ -26,9 +37,10 @@
 	
 	///Alerting
 	
-	function setAlert($content=NULL,$alerttype='danger'){
+	function setAlert($content,$alerttype){
 		$_SESSION[APPNAME]['alertcontent'] = $content;
 		$_SESSION[APPNAME]['alerttype'] = $alerttype;
+
 	}
 	
 	function Alert(){
@@ -136,6 +148,44 @@ function insertAuditLog($user, $action)
         fwrite($file, $data);
         fclose($file);
     }
+}
+
+
+function week_range() {
+
+	$date ='last sunday';
+
+    $dt_min = new DateTime($date); // Edit
+	$dt_min->modify('+1 day'); // Edit
+	$dt_max = clone($dt_min);
+	$dt_max->modify('+4 days');
+
+
+
+
+	$date_range['1']=$dt_min->format('m/d/Y');
+
+	$date_range['2']=$dt_max->format('m/d/Y');
+
+	return $date_range;
+
+}
+function user_type($id) {
+	global $connection;
+	return $connection->myQuery("SELECT * FROM user_type WHERE id=? LIMIT 1",array($id))->fetch(PDO::FETCH_ASSOC);
+	
+
+}
+
+function AllowUser($user_type_id)
+{
+    if (array_search($_SESSION[APPNAME]['UserType'], $user_type_id) !== false) {
+    
+        return true;
+        
+    }
+    // echo "wew";
+    return false;
 }
 
 

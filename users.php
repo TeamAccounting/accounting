@@ -19,7 +19,9 @@
 <section class="content-header">
 	<h2>List of Users </h2>
 	<?php
+	
 		Alert();
+		// die;
 		unsetAlert();
 	?>
 	<div class="box">

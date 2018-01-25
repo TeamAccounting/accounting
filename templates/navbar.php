@@ -1,4 +1,11 @@
+<?php
+	require_once('support/config.php');
 
+	
+	  require_once("include/modal_query.php");
+
+
+ ?>
  <header class="main-header" >
    <a href="dash.php" class="logo">
 	<span class="logo-lg">
@@ -14,8 +21,56 @@
 	  
 	<div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-			
-           
+			<?php 
+				$user_id = $_SESSION[APPNAME]['UserId'];
+          		$message=$connection->myQuery("SELECT COUNT(qm.id) AS total, qm.sender_id, qm.read, qm.receiver_id,u.user_id,u.full_name,qm.message,qm.query_id,qm.sender_id FROM query_message qm 
+          			INNER JOIN users u ON qm.sender_id=u.user_id
+          			WHERE qm.read='0' AND qm.receiver_id = {$user_id} ")->fetch(PDO::FETCH_ASSOC);
+
+						
+
+						
+			?>
+			<?php if($message['total'] > 0): ?>
+            <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"><?php echo $message['total']; ?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $message['total']; ?> messages</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                <?php 
+                $message_info=$connection->myQuery("SELECT qm.id, qm.sender_id, qm.read, qm.receiver_id,u.user_id,u.full_name,qm.message,qm.query_id,qm.sender_id FROM query_message qm 
+          			INNER JOIN users u ON qm.sender_id=u.user_id
+          			WHERE qm.read='0' AND qm.receiver_id = {$user_id} ");
+
+                while($row = $message_info->fetch(PDO::FETCH_ASSOC)): ?>
+                  <li><!-- start message -->
+
+                    <a href="#" onclick='query(<?php echo $row['query_id'].",".$row['sender_id']; ?>)'>
+                      <div class="pull-left">
+                        <img src="image/defUser.jpeg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        <?php echo $row['full_name']; ?>
+                     
+                      </h4>
+                      <p> <?php echo $row['message']; ?></p>
+                    	
+                    </a>
+                  </li>
+                 <?php endwhile; ?>
+                  <!-- end message -->
+                 
+                </ul>
+              </li>
+             
+            </ul>
+          	</li>
+          	<?php endif; ?>
 			<li><a data-toggle="control-sidebar"><i class="fa fa-calculator"></i> <span>Multi-Function Calculator</span></a></li>
 			
 			<li class="dropdown user user-menu">
@@ -31,14 +86,18 @@
                     <img src="image/defUser.jpeg" class="img-circle" alt="User Image">
                     <p>
                      <?php echo $_SESSION[APPNAME]['FullName']; ?>
-                      <small> <?php echo $_SESSION[APPNAME]['UserType']; ?> </small>
+                      <small> <?php
+
+                      echo user_type($_SESSION[APPNAME]['UserType'])['name']; ?> </small>
                     </p>
                   </li>
                   <!-- Menu Body -->
                   
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                   
+                   	<div class="pull-left">
+                      <a href="myaccount.php" class="btn btn-default btn-flat">Profile</a>
+                    </div>
                     <div class="pull-right">
                       <a href="php/LoggingOut.php" class="btn btn-default btn-flat">Sign out</a>
                     </div>
@@ -144,15 +203,15 @@
         <div class="box-body">
 		<form id="Depreciation" method="post">
 				<div class="input-group">
-					 <input class="form-control input-sm" placeholder="(Initial Cost"id="initial_cost" type="text">
+					 <input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="(Initial Cost"id="initial_cost" type="text">
 				</div>
 				-
 				<div class="input-group">
-					<input class="form-control input-sm" placeholder="Scrap Value)" id="scrap_value" type="text">
+					<input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="Scrap Value)" id="scrap_value" type="text">
 				</div>
 				/
 				<div class="input-group">
-					<input class="form-control input-sm" placeholder="Life Expectancy" id="life_expectancy" type="text">
+					<input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="Life Expectancy" id="life_expectancy" type="text">
 					<span class="input-group-addon input-sm">yrs</span>
 				</div>
 				=
@@ -194,23 +253,23 @@
         <div class="box-body">
 		<form id="Balance" method="post">
           <div class="input-group">
-               <input class="form-control input-sm" placeholder="(Initial Cost" id="initial_cost" type="text">
+               <input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="(Initial Cost" id="initial_cost" type="text">
            </div>
 		   -
 		   <div class="input-group">
-                <input class="form-control input-sm" placeholder="Accumulated Depreciation" id="accumulated_depreciation" type="text">
+                <input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="Accumulated Depreciation" id="accumulated_depreciation" type="text">
            </div>
 		   -
 		   <div class="input-group">
-                <input class="form-control input-sm" placeholder="Scrap Value)" id="scrap_value" type="text">
+                <input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="Scrap Value)" id="scrap_value" type="text">
            </div>
 		   *
 		   <div class="input-group">
-                <input class="form-control input-sm" placeholder="Percentage" id="percentage" type="text">
+                <input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="Percentage" id="percentage" type="text">
            </div>
 		   =
 		   <div class="input-group">
-                <input class="form-control input-sm" placeholder="Annual Depreciation Expense" id="br" disabled type="text">
+                <input class="form-control input-sm" onkeypress="return isNumberKey(event,this)" placeholder="Annual Depreciation Expense" id="br" disabled type="text">
            </div>
 		   <br>
 			<button type="submit" onclick="return BR()" class="btn bg-olive btn-xs">Compute</button>
@@ -243,3 +302,6 @@
 </aside>
 <div class="control-sidebar-bg"></div>
 </div>
+<?php
+	addFoot();
+?>

@@ -24,10 +24,10 @@
 	<div class="box">
 		<div class="box-body">
 				
-							
+			<?php if($_SESSION[APPNAME]['UserType'] <> 4): ?>		
 				<button type="submit" class="btn btn-primary" id="btn-add" onclick='createJournal();' name="btnadd" style="float:right;"><i class="fa fa-plus"> &nbsp; Add General Journal</i>
 				</button>
-				
+			<?php endif; ?>
 		
 		</div>
 	<div class="box-body">

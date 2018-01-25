@@ -21,11 +21,11 @@
 		unsetAlert();
 	?>
 	<div class="box">
-		<div class="box-body">
+		<!-- <div class="box-body">
 				<input type="text" class="container-fluid" size="30" name="search" placeholder="Search">
 				<button type="submit" class="btn btn-primary" id="btn-search" name="btnsearch"><i class="fa fa-search"></i> </button>
 				
-		</div>
+		</div> -->
 	<div class="box-body">
 		<table id='dataTables' class="table responsive-table table-bordered table-striped" >
 			<thead>
@@ -57,7 +57,7 @@
 	
 		
 		var href = window.location.href;
-		var string = href.substr(0,href.lastIndexOf('/'))+"/journal_entry.php?id=" + id;
+		var string = href.substr(0,href.lastIndexOf('/'))+"/journal_entry.php?type=archive&id=" + id;
 		window.location=string;
 	}
 	

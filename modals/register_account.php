@@ -6,7 +6,7 @@
         <form method="POST" action='php/registering_account.php'>
           <div class="modal-header" style="background-color:#3c8dbc;">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" style="color:#fff;"><strong> Create A Journal </strong></h4>
+            <h4 class="modal-title" style="color:#fff;"><strong> Create an Account </strong></h4>
           </div>
           <div class="modal-body">
             <div class='form-group'>

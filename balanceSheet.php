@@ -12,6 +12,9 @@
 				$from_Date = $_POST['toDate'];
 				$to_Date = $_POST['fromDate'];
 			}
+			$button = "enabled";
+		} else {
+			$button = "disabled";
 		}
 	}else{
 		redirect('index.php');
@@ -26,50 +29,52 @@
 	<?php
 		Alert();
 		unsetAlert();
-			$journalsTable=$connection->myQuery("SELECT * FROM journals WHERE is_archived != 1");
+			$journalsTable=$connection->myQuery("SELECT * FROM journals WHERE is_archived != 1")->fetchAll(PDO::FETCH_ASSOC);
 				if(isset($_POST['fromDate'])&&isset($_POST['toDate'])){
-					$fromDate = $connection->myQuery("SELECT journal_date FROM journals WHERE journal_id = $from_Date")->fetch(PDO::FETCH_ASSOC);
-					$toDate = $connection->myQuery("SELECT journal_date FROM journals WHERE journal_id = $to_Date")->fetch(PDO::FETCH_ASSOC);
+					$fromDate = $connection->myQuery("SELECT * FROM journals WHERE journal_id = $from_Date")->fetch(PDO::FETCH_ASSOC);
+					$toDate = $connection->myQuery("SELECT * FROM journals WHERE journal_id = $to_Date")->fetch(PDO::FETCH_ASSOC);
 						echo "<h3><center><b>".date("F d Y",strtotime($fromDate['journal_date']))."</b> to <b>". date("F d Y",strtotime($toDate['journal_date'])) ."</b</center></h3>";
 				} 
 	?>
+</section>
 <form action="balanceSheet.php" method="POST">
-	<div class="row">
 
-                  <label class="col-xs-1 control-label" for="fromdate">From:</label>
-				  <div class= "col-xs-2">
-					<select class="form-control" name="fromDate" id="fromdate">
-						<option disabled selected>Date</option>
-						<?php 
-						while($row=$journalsTable->fetch(PDO::FETCH_ASSOC)){
-									?>
-						<option value=<?php echo $row['journal_id'];?>><?php echo htmlspecialchars($row['journal_date']); ?></option>
-						<?php } ?>
+<section class ="content">
+	<div class="row">
+	<div class="col-lg-12 col-xs-6">
+		<div class="box box-primary">
+			<br>
+                <label class="col-xs-1 control-label" for="fromdate">From:</label>
+				<div class= "col-xs-2">
+					<select class="form-control cbo" name="fromDate" data-placeholder='Date' <?php echo !(empty($fromDate))?"data-selected='".$fromDate['journal_id']."'":NULL ?>  id="fromdate" required>
+						<!-- <option value="">Date</option> -->
+						
+									<?php echo makeOptions($journalsTable); ?>
+						
+						
 					</select>
-					</div>
-		 
+
+
+				</div>
+		 		
 
                  <label class="col-xs-1 control-label" for="todate">To:</label>
 				 <div class= "col-xs-2">
-					<select class="form-control" name="toDate" id="todate">
-						<option disabled selected>Date</option>
-							<?php 
-							$journalsTable=$connection->myQuery("SELECT * FROM journals WHERE is_archived != 1");
-							while($row=$journalsTable->fetch(PDO::FETCH_ASSOC)){
-									?>
-						<option value=<?php echo $row['journal_id'];?>><?php echo htmlspecialchars($row['journal_date']); ?></option>
-							<?php } ?>
+					<select class="form-control cbo" name="toDate" data-placeholder='Date' <?php echo !(empty($toDate))?"data-selected='".$toDate['journal_id']."'":NULL ?> id="todate" required>
+						<?php echo makeOptions($journalsTable); ?>
                   </select>
 				</div>
 				
 
 			<button type="submit" class="btn bg-olive">Generate</button>
-			<button type="button" class="btn btn-success">Print</button>
+			<button type="button" id="submit" class="btn btn-success" onclick="window.print();" <?php echo $button; ?>>Print</button>
+		 <br><br>
 		 
-		 
+		</div>
+	</div>
 	</div>
 </form>				 
-</section>
+
 
 
 
@@ -182,15 +187,15 @@
 					$totalCapital = 0;
 						while($row_capital =$query_capital->fetch(PDO::FETCH_ASSOC)){
 							$totalCapital = $totalCapital + $row_capital['CTotal'];
-						}
+						
 					?>
 					
 					<tr>
-						<td><p style='text-indent:5vh;'><?php echo $row['account_name']; ?></td>
+						<td><p style='text-indent:5vh;'><?php echo $row_capital['account_name']; ?></td>
 						<td><?php echo number_format($totalCapital,2); ?></td>
 					</tr>
 						<?php
-							}
+						}	}
 						?>	
 
 				<?php
